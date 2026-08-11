@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AI Agent 마켓</title>
+  <link rel="stylesheet" href="/css/styles.css" />
+</head>
+<body>
+  <header class="site-header">
+    <h1>AI Agent 마켓</h1>
+    <button id="openRegisterBtn" class="btn-primary">+ AI Agent 등록</button>
+  </header>
+
+  <main id="categorySections" class="category-sections"></main>
+
+  <footer class="site-footer">
+    <a href="/admin.html">관리자 승인 페이지</a>
+  </footer>
+
+  <!-- 등록 요청 모달 -->
+  <div id="registerModal" class="modal-overlay hidden">
+    <div class="modal">
+      <div class="modal-header">
+        <h2>AI Agent 등록 요청</h2>
+        <button type="button" id="closeRegisterBtn" class="modal-close" aria-label="닫기">&times;</button>
+      </div>
+      <form id="registerForm" novalidate>
+        <label>
+          에이전트 이름
+          <input type="text" name="name" maxlength="50" required />
+        </label>
+        <label>
+          카테고리
+          <select name="category" id="categorySelect" required></select>
+        </label>
+        <label>
+          설명
+          <textarea name="description" maxlength="500" rows="4" required></textarea>
+        </label>
+        <label>
+          등록자 이름
+          <input type="text" name="developer" maxlength="30" required />
+        </label>
+        <label>
+          연락처 이메일
+          <input type="email" name="contactEmail" required />
+        </label>
+        <label>
+          HTML 파일 업로드
+          <input type="file" name="htmlFile" accept=".html,.htm" required />
+        </label>
+        <p id="formError" class="form-error hidden"></p>
+        <div class="modal-actions">
+          <button type="button" id="cancelRegisterBtn" class="btn-secondary">취소</button>
+          <button type="submit" id="submitRegisterBtn" class="btn-primary">요청 보내기</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- 에이전트 실행 뷰어 -->
+  <div id="viewerModal" class="viewer-overlay hidden">
+    <div class="viewer-topbar">
+      <span id="viewerTitle"></span>
+      <div class="viewer-actions">
+        <a id="viewerNewTab" href="#" target="_blank" rel="noopener">새 탭에서 열기</a>
+        <button type="button" id="closeViewerBtn">닫기 &times;</button>
+      </div>
+    </div>
+    <iframe
+      id="viewerFrame"
+      title="AI Agent 실행 화면"
+      sandbox="allow-scripts allow-forms allow-modals allow-popups allow-same-origin"
+    ></iframe>
+  </div>
+
+  <div id="toast" class="toast hidden"></div>
+
+  <script src="/js/main.js"></script>
+</body>
+</html>
