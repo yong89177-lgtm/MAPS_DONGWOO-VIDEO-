@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AI Agent 관리자 승인</title>
+  <link rel="stylesheet" href="/css/styles.css" />
+</head>
+<body>
+  <header class="site-header">
+    <h1>AI Agent 관리자 승인</h1>
+    <div class="admin-key-box">
+      <input type="password" id="adminKeyInput" placeholder="관리자 키 입력" />
+      <button id="saveKeyBtn" class="btn-primary">확인</button>
+    </div>
+  </header>
+
+  <p id="adminStatus" class="form-error"></p>
+
+  <nav class="tabs">
+    <button class="tab-btn active" data-tab="pending">대기중</button>
+    <button class="tab-btn" data-tab="first_approved">1차 승인완료</button>
+    <button class="tab-btn" data-tab="approved">승인완료</button>
+    <button class="tab-btn" data-tab="rejected">거절됨</button>
+  </nav>
+
+  <main id="agentList" class="admin-list"></main>
+
+  <footer class="site-footer">
+    <a href="/index.html">메인으로 돌아가기</a>
+  </footer>
+
+  <script src="/js/admin.js"></script>
+</body>
+</html>

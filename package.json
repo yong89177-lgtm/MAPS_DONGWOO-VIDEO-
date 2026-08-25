@@ -1,0 +1,19 @@
+{
+  "name": "ai-agent-registry",
+  "version": "1.0.0",
+  "private": true,
+  "description": "AI Agent 등록 / 2단계 관리자 승인 / 카테고리별 전시 웹 서비스",
+  "main": "server/index.js",
+  "scripts": {
+    "start": "node server/index.js",
+    "dev": "nodemon server/index.js"
+  },
+  "dependencies": {
+    "dotenv": "^16.4.5",
+    "express": "^4.19.2",
+    "multer": "^2.0.0"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.4"
+  }
+}
