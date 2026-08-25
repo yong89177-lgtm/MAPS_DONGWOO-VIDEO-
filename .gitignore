@@ -3,3 +3,11 @@ node_modules/
 uploads/*.html
 uploads/*.htm
 !uploads/.gitkeep
+uploads/dash-requests/*.html
+uploads/dash-requests/*.htm
+!uploads/dash-requests/.gitkeep
+
+# 계정 비밀번호 해시·개인정보가 담긴 저장소는 커밋하지 않는다 (서버가 처음 실행될 때 자동 생성됨).
+data/accounts.json
+data/signup-requests.json
+data/dash-requests.json
