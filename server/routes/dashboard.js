@@ -235,7 +235,10 @@ router.post('/approve-dash-request', requireAdmin, async (req, res, next) => {
         name: item.name,
         desc: item.desc || '',
         owner: item.requesterName || '',
-        addr: item.file ? `api/dash-file?id=${item.id}` : '',
+        // 메인 화면의 normAddr()은 "http://"로 시작하지 않는 주소를 전부 호스트명으로 오인해
+        // 앞에 "http://"를 붙여버린다(예: "api/..." -> "http://api/..."). 그래서 반드시
+        // 스킴+호스트가 포함된 절대 URL로 저장해야 카드 클릭 시 정상적으로 열린다.
+        addr: item.file ? `${req.protocol}://${req.get('host')}/api/dash-file?id=${item.id}` : '',
         order: nextOrder,
         org: item.org || '',
         likes: 0,
