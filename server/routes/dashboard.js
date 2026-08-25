@@ -235,10 +235,10 @@ router.post('/approve-dash-request', requireAdmin, async (req, res, next) => {
         name: item.name,
         desc: item.desc || '',
         owner: item.requesterName || '',
-        // 메인 화면의 normAddr()은 "http://"로 시작하지 않는 주소를 전부 호스트명으로 오인해
-        // 앞에 "http://"를 붙여버린다(예: "api/..." -> "http://api/..."). 그래서 반드시
-        // 스킴+호스트가 포함된 절대 URL로 저장해야 카드 클릭 시 정상적으로 열린다.
-        addr: item.file ? `${req.protocol}://${req.get('host')}/api/dash-file?id=${item.id}` : '',
+        // "/"로 시작하는 경로는 메인 화면의 normAddr()이 현재 접속 중인 origin을 붙여서 열어준다.
+        // 승인 시점의 host를 박아 넣으면(예: localhost:3000) 서버 주소가 바뀔 때마다(로컬 -> 사내망 IP 등)
+        // 기존 카드가 깨지므로, 항상 이 경로 형태로 저장한다.
+        addr: item.file ? `/api/dash-file?id=${item.id}` : '',
         order: nextOrder,
         org: item.org || '',
         likes: 0,
