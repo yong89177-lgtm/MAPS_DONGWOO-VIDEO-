@@ -1135,12 +1135,12 @@
      카테고리 색(--cat-1..4)은 화이트 테마에서도 그대로 유지 — 여기서 건드리지 않는다. */
   body.theme-white{
     color-scheme:light;
-    --ink:#ffffff;
+    --ink:#eef0f4;
     --ink-2:#f7f8fa;
-    --panel:#eef0f4;
+    --panel:#d3d8e1;
     --surface-high:#eef0f4;
-    --surface-bright:#e1e5eb;
-    --panel-line:#d7dbe3;
+    --surface-bright:#c4cbd6;
+    --panel-line:#b9c0cc;
     --txt:#111827;
     --txt-dim:#6b7280;
     --txt-faint:#9ca3af;
@@ -1152,16 +1152,18 @@
     --c0:#eef0f4; --c1:#e5e8ee; --c2:#d7dbe3; --c3:#c3c9d4;
     --c4:#16a34a; --c5:#6366f1; --c6:#d97706;
     --cell-soon:#eef0f4;
-    --header-scroll-bg:rgba(255,255,255,.94);
-    --dock-bg:rgba(238,240,244,.96);
-    --dock-bg-strong:rgba(238,240,244,.98);
-    --card-bg:#eef0f4;
+    --header-scroll-bg:rgba(238,240,244,.94);
+    --dock-bg:rgba(211,216,225,.96);
+    --dock-bg-strong:rgba(211,216,225,.98);
+    --card-bg:#d3d8e1;
     --card-bg-live:var(--card-bg);
-    --card-shadow:0 1px 3px rgba(17,24,39,.06),0 10px 22px rgba(17,24,39,.08);
+    --card-shadow:0 1px 3px rgba(17,24,39,.08),0 10px 22px rgba(17,24,39,.10);
   }
   /* 화이트 테마 카드 — 어두운 배경을 전제로 한 반투명 흰색 오버레이는 밝은 배경 위에서
      거의 안 보이므로, 카드 자체 배경/그림자를 명시적으로 준다 (시인성 확보).
-     카드 상단의 카테고리 색 바(--catc)는 그대로 유지된다. */
+     카드 상단의 카테고리 색 바(--catc)는 그대로 유지된다.
+     페이지 배경(--ink)이 이전 카드색을 물려받았기 때문에, 카드(--card-bg/--panel)는 그보다
+     한 단계 더 진한 색으로 구분한다. */
   body.theme-white .cell{background:var(--card-bg);box-shadow:var(--card-shadow)}
   body.theme-white .cell:hover{background:var(--surface-bright)}
   body.theme-white .cell:not(.dark){background:var(--card-bg-live)}
@@ -1170,8 +1172,8 @@
   body.theme-white .cell.v10cell:not(.dark){background:var(--card-bg-live)}
   body.theme-white .comm-card{background:var(--card-bg);box-shadow:var(--card-shadow)}
   body.theme-white .comm-card:hover{background:var(--surface-bright)}
-  /* 공지사항 박스만 흰색 유지 (통계·차트 패널의 회색 카드와는 별개 요청) */
-  body.theme-white .ih-card{background:#ffffff;box-shadow:var(--card-shadow)}
+  /* 공지사항 박스도 다른 AI Agent 카드와 동일한 색으로 맞춘다 */
+  body.theme-white .ih-card{background:var(--card-bg);box-shadow:var(--card-shadow)}
   body.theme-white .t5{background:var(--card-bg);box-shadow:var(--card-shadow)}
   body.theme-white .t5:hover{background:var(--surface-bright)}
 
