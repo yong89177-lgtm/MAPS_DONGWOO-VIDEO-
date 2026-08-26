@@ -1112,27 +1112,38 @@
   /* ===== 화이트 테마 — 톱 네비 테마 버튼(#themeBtn)에서 전환 ===== */
   body.theme-white{
     color-scheme:light;
-    --ink:#f3f5fb;
+    --ink:#e9edf6;
     --ink-2:#ffffff;
     --panel:#ffffff;
-    --surface-high:#edf0f8;
-    --surface-bright:#e2e7f4;
-    --panel-line:rgba(22,32,64,.14);
-    --txt:#12172c;
-    --txt-dim:rgba(18,23,44,.64);
-    --txt-faint:rgba(18,23,44,.40);
-    --accent:#0a8fa6;
-    --accent-2:#6a4fe0;
+    --surface-high:#e7ebf5;
+    --surface-bright:#dbe2f0;
+    --panel-line:rgba(15,23,50,.22);
+    --txt:#0b0f20;
+    --txt-dim:rgba(11,15,32,.78);
+    --txt-faint:rgba(11,15,32,.56);
+    --accent:#067388;
+    --accent-2:#5a3fd6;
     --on-accent:#ffffff;
-    --danger:#d8324a;
-    --grad:linear-gradient(120deg,#0a8fa6 0%,#2f7fe0 48%,#6a4fe0 100%);
+    --danger:#c81e3a;
+    --grad:linear-gradient(120deg,#067388 0%,#2266cf 48%,#5a3fd6 100%);
     --c0:#eef1f8; --c1:#dce6f6; --c2:#c9e3ef; --c3:#a9d6e6;
-    --c4:#1f9d6f; --c5:#2f7fe0; --c6:#b8860b;
-    --cell-soon:#e7ebf5;
-    --header-scroll-bg:rgba(255,255,255,.82);
-    --dock-bg:rgba(255,255,255,.86);
-    --dock-bg-strong:rgba(255,255,255,.9);
+    --c4:#177a56; --c5:#2266cf; --c6:#9a6b06;
+    --cell-soon:#dfe4f2;
+    --header-scroll-bg:rgba(255,255,255,.92);
+    --dock-bg:rgba(255,255,255,.94);
+    --dock-bg-strong:rgba(255,255,255,.96);
+    --card-bg:#ffffff;
+    --card-bg-live:linear-gradient(180deg,rgba(6,115,136,.10),rgba(90,63,214,.05)),#ffffff;
+    --card-shadow:0 1px 2px rgba(15,23,50,.06),0 8px 20px rgba(15,23,50,.08);
   }
+  /* 화이트 테마 카드 — 어두운 배경을 전제로 한 반투명 흰색 오버레이는 밝은 배경 위에서
+     거의 안 보이므로, 카드 자체 배경/그림자를 명시적으로 준다 (시인성 확보). */
+  body.theme-white .cell{background:var(--card-bg);box-shadow:var(--card-shadow)}
+  body.theme-white .cell:hover{background:var(--surface-bright)}
+  body.theme-white .cell:not(.dark){background:var(--card-bg-live)}
+  body.theme-white .cell.v10cell{background:var(--card-bg);box-shadow:var(--card-shadow)}
+  body.theme-white .cell.v10cell:hover{background:var(--surface-bright)}
+  body.theme-white .cell.v10cell:not(.dark){background:var(--card-bg-live)}
 
   /* ---------- 상단 메뉴: 5개 → 4개, 간격 확보 ---------- */
   .nav-links{gap:20px;margin-left:20px}
@@ -1969,7 +1980,7 @@
       </button>
       <div class="theme-wrap">
         <button class="gear nospin" id="themeBtn" title="테마" aria-label="테마 변경">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 14.5A8.5 8.5 0 1 1 9.5 4a6.5 6.5 0 0 0 10.5 10.5z"/><path d="M18.5 2.5v3M17 4h3"/></svg>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="8.5"/><path d="M12 3.5a8.5 8.5 0 0 1 0 17z" fill="currentColor" stroke="none"/></svg>
         </button>
         <div class="theme-menu" id="themeMenu">
           <button data-theme="white"><span class="sw white"></span>화이트</button>
