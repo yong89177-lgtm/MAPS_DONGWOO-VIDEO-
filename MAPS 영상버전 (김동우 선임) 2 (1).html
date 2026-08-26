@@ -1117,11 +1117,11 @@
   body.theme-white{
     color-scheme:light;
     --ink:#ffffff;
-    --ink-2:#f8f9fa;
-    --panel:#f8f9fa;
-    --surface-high:#f5f5f7;
-    --surface-bright:#edeef1;
-    --panel-line:#e5e7eb;
+    --ink-2:#f7f8fa;
+    --panel:#eef0f4;
+    --surface-high:#eef0f4;
+    --surface-bright:#e1e5eb;
+    --panel-line:#d7dbe3;
     --txt:#111827;
     --txt-dim:#6b7280;
     --txt-faint:#9ca3af;
@@ -1130,15 +1130,15 @@
     --on-accent:#ffffff;
     --danger:#dc2626;
     --grad:linear-gradient(120deg,#0891b2 0%,#6366f1 100%);
-    --c0:#f8f9fa; --c1:#f1f2f4; --c2:#e5e7eb; --c3:#d1d5db;
+    --c0:#eef0f4; --c1:#e5e8ee; --c2:#d7dbe3; --c3:#c3c9d4;
     --c4:#16a34a; --c5:#6366f1; --c6:#d97706;
-    --cell-soon:#f1f2f4;
+    --cell-soon:#eef0f4;
     --header-scroll-bg:rgba(255,255,255,.94);
-    --dock-bg:rgba(248,249,250,.95);
-    --dock-bg-strong:rgba(248,249,250,.97);
-    --card-bg:#f8f9fa;
+    --dock-bg:rgba(238,240,244,.96);
+    --dock-bg-strong:rgba(238,240,244,.98);
+    --card-bg:#eef0f4;
     --card-bg-live:var(--card-bg);
-    --card-shadow:0 1px 2px rgba(17,24,39,.04),0 6px 16px rgba(17,24,39,.06);
+    --card-shadow:0 1px 3px rgba(17,24,39,.06),0 10px 22px rgba(17,24,39,.08);
   }
   /* 화이트 테마 카드 — 어두운 배경을 전제로 한 반투명 흰색 오버레이는 밝은 배경 위에서
      거의 안 보이므로, 카드 자체 배경/그림자를 명시적으로 준다 (시인성 확보).
@@ -1149,6 +1149,9 @@
   body.theme-white .cell.v10cell{background:var(--card-bg);box-shadow:var(--card-shadow)}
   body.theme-white .cell.v10cell:hover{background:var(--surface-bright)}
   body.theme-white .cell.v10cell:not(.dark){background:var(--card-bg-live)}
+  body.theme-white .comm-card{background:var(--card-bg);box-shadow:var(--card-shadow)}
+  body.theme-white .comm-card:hover{background:var(--surface-bright)}
+  body.theme-white .ih-card{background:var(--card-bg);box-shadow:var(--card-shadow)}
   body.theme-white .t5{background:var(--card-bg);box-shadow:var(--card-shadow)}
   body.theme-white .t5:hover{background:var(--surface-bright)}
 
