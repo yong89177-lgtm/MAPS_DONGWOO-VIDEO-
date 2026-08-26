@@ -1172,8 +1172,13 @@
   body.theme-white .cell.v10cell:not(.dark){background:var(--card-bg-live)}
   body.theme-white .comm-card{background:var(--card-bg);box-shadow:var(--card-shadow)}
   body.theme-white .comm-card:hover{background:var(--surface-bright)}
-  /* 공지사항 박스도 다른 AI Agent 카드와 동일한 색으로 맞춘다 */
-  body.theme-white .ih-card{background:var(--card-bg);box-shadow:var(--card-shadow)}
+  /* 대시보드 3박스(통계·차트·공지사항)의 바깥 테두리 박스는 흰색으로,
+     공지사항 안쪽 박스(.ih-card)는 카드색이 아니라 배경색과 맞춘다
+     (바깥은 흰색 틀, 안쪽은 배경에 파묻힌 듯 보이게). */
+  body.theme-white .dash-panel{background:#ffffff;box-shadow:var(--card-shadow)}
+  body.theme-white .ih-card{background:var(--ink);box-shadow:none}
+  /* 카테고리 컬럼(카드들을 묶는 바깥 박스)도 흰색으로 — 안의 카드 색은 그대로 둔다 */
+  body.theme-white .col{background:#ffffff;box-shadow:var(--card-shadow)}
   body.theme-white .t5{background:var(--card-bg);box-shadow:var(--card-shadow)}
   body.theme-white .t5:hover{background:var(--surface-bright)}
 
