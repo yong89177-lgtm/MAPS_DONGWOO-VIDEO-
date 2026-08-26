@@ -128,6 +128,75 @@ router.post('/approve-account', requireAdmin, async (req, res, next) => {
   }
 });
 
+// ---- 계정 관리 (관리자 콘솔의 "계정 관리" 탭) ----
+
+function isLastAdmin(list, id) {
+  const admins = list.filter((a) => a.role === 'admin');
+  return admins.length === 1 && admins[0].id === id;
+}
+
+router.get('/accounts', requireAdmin, (req, res) => {
+  const list = accounts.read().map(({ pw, ...rest }) => rest);
+  res.json({ ok: true, accounts: list });
+});
+
+router.post('/accounts', requireAdmin, async (req, res, next) => {
+  try {
+    const { action, id } = req.body || {};
+    const list = accounts.read();
+
+    if (action === 'add') {
+      const { pw, role } = req.body;
+      if (!id || !pw) return res.status(400).json({ ok: false, error: 'ID와 비밀번호를 입력하세요.' });
+      if (list.some((a) => a.id === id)) {
+        return res.status(409).json({ ok: false, error: '이미 존재하는 아이디입니다.' });
+      }
+      list.push({
+        id,
+        pw: hashPassword(pw),
+        role: role === 'admin' ? 'admin' : 'user',
+        org: '',
+        name: '',
+        empno: '',
+        createdAt: new Date().toISOString(),
+      });
+      await accounts.write(list);
+      return res.json({ ok: true });
+    }
+
+    const acc = list.find((a) => a.id === id);
+    if (!acc) return res.status(404).json({ ok: false, error: '계정을 찾을 수 없습니다.' });
+
+    if (action === 'update') {
+      const { pw, role, name, org, empno } = req.body;
+      if (role && role !== acc.role && acc.role === 'admin' && role !== 'admin' && isLastAdmin(list, id)) {
+        return res.status(409).json({ ok: false, error: '마지막 관리자 계정의 권한은 변경할 수 없습니다.' });
+      }
+      if (pw) acc.pw = hashPassword(pw);
+      if (role === 'admin' || role === 'user') acc.role = role;
+      if (name !== undefined) acc.name = name;
+      if (org !== undefined) acc.org = org;
+      if (empno !== undefined) acc.empno = empno;
+      await accounts.write(list);
+      return res.json({ ok: true });
+    }
+
+    if (action === 'delete') {
+      if (acc.role === 'admin' && isLastAdmin(list, id)) {
+        return res.status(409).json({ ok: false, error: '마지막 관리자 계정은 삭제할 수 없습니다.' });
+      }
+      const idx = list.findIndex((a) => a.id === id);
+      list.splice(idx, 1);
+      await accounts.write(list);
+      return res.json({ ok: true });
+    }
+
+    res.status(400).json({ ok: false, error: '올바르지 않은 요청입니다.' });
+  } catch (e) {
+    next(e);
+  }
+});
+
 // ---- AI Agent 등록 요청 ----
 
 router.post('/dash-request', async (req, res, next) => {
