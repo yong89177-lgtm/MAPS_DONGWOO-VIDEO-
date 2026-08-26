@@ -735,13 +735,32 @@
   /* 첫 화면은 히어로만 있으므로 세로 가운데로 모은다 */
   #secHome{justify-content:center}
   #secHome .home-inner{justify-content:center}
+  /* 히어로 영상 위 문구는 테마와 무관하게 항상 다크 테마 배색으로 고정한다.
+     화이트 테마의 어두운 본문색(--txt 등)이 영상+반투명 검정 베일(#heroVeil) 위에 얹히면
+     대비가 무너져 글자가 거의 안 보이고, 하단 페이드(.hero::after)도 --ink 를 따라가서
+     흰색으로 번져 영상이 뿌옇게 보인다. #secHome 안에서만 원래(다크) 값으로 되돌린다. */
+  #secHome{
+    --ink:#05070e;
+    --txt:#eaf0fb;
+    --txt-dim:rgba(234,240,251,.62);
+    --txt-faint:rgba(234,240,251,.38);
+    --accent:#4dd8e8;
+    --accent-2:#8b7bff;
+    --on-accent:#04141a;
+    --panel-line:rgba(140,170,255,.13);
+    --grad:linear-gradient(120deg,#4dd8e8 0%,#6fb4ff 48%,#8b7bff 100%);
+    --glow:0 0 26px rgba(77,216,232,.22);
+  }
   /* 문구는 영상 위에 얹힌다 — 박스형 스크림(.hero::before)은 밝은 영상에서 어두운
      타원으로 드러나므로 쓰지 않고, 글자 자체에 그림자를 준다.
      제목은 text-shadow 가 아니라 filter:drop-shadow 다. 안의 <span class="grad"> 가
      background-clip:text + text-fill-color:transparent 라 text-shadow 는 투명한
      글자 속으로 비쳐 지저분해진다. drop-shadow 는 렌더 결과의 알파를 따른다. */
   #secHome .hero::before{display:none}
-  #secHome .hero-title{filter:drop-shadow(0 2px 14px rgba(5,7,14,.85))}
+  /* .hero-title 는 원래 색을 직접 지정하지 않고 body{color:var(--txt)}를 상속만 받는데,
+     상속은 body 에서 --txt 가 이미 해석된 "값"을 물려주는 것이라 이 아래 #secHome 스코프의
+     --txt 재정의가 반영되지 않는다. 여기서 직접 var(--txt)를 지정해 이 스코프 값을 쓰게 한다. */
+  #secHome .hero-title{color:var(--txt);filter:drop-shadow(0 2px 14px rgba(5,7,14,.85))}
   #secHome .hero .eyebrow,
   #secHome .hero-tagline,
   #secHome .hero .sub{text-shadow:0 1px 10px rgba(5,7,14,.85)}
