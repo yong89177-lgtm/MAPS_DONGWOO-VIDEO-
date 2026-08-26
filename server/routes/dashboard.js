@@ -62,6 +62,21 @@ router.post('/logout', (req, res) => {
   res.json({ ok: true });
 });
 
+// ---- 대시보드 관리 콘솔 (관리자가 팀/AI 목록을 직접 편집) ----
+
+router.post('/save', requireAdmin, async (req, res, next) => {
+  try {
+    const body = req.body;
+    if (!body || !Array.isArray(body.columns)) {
+      return res.status(400).json({ ok: false, error: '올바르지 않은 저장 데이터입니다.' });
+    }
+    await dashboards.write(body);
+    res.json({ ok: true });
+  } catch (e) {
+    next(e);
+  }
+});
+
 router.post('/register', async (req, res, next) => {
   try {
     const { id, pw, org, name, empno } = req.body || {};
