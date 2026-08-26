@@ -29,6 +29,9 @@
     --glow:0 0 26px rgba(77,216,232,.22);
     --glow-2:0 0 30px rgba(139,123,255,.20);
     --nav-h:68px;
+    --header-scroll-bg:rgba(5,7,14,.72);
+    --dock-bg:rgba(9,13,24,.86);
+    --dock-bg-strong:rgba(9,13,24,.9);
   }
   *{box-sizing:border-box;margin:0;padding:0}
   html{-webkit-text-size-adjust:100%}
@@ -327,7 +330,7 @@
   .theme-menu button:hover{background:rgba(127,127,127,.12)}
   .theme-menu button.active{color:var(--accent)}
   .theme-menu button .sw{width:14px;height:14px;border-radius:4px;border:1px solid var(--panel-line)}
-  .sw.dark{background:#090d18}.sw.white{background:#ffffff}.sw.lg{background:linear-gradient(135deg,#bdbdbd 50%,#1d5e3a 50%)}
+  .sw.dark{background:#090d18}.sw.white{background:#ffffff}
 
   /* 챗봇 */
   .chat-fab{position:fixed;right:18px;bottom:18px;width:58px;height:58px;border-radius:50%;background:var(--accent);color:#04121a;border:none;cursor:pointer;box-shadow:0 8px 24px rgba(0,0,0,.4);display:grid;place-items:center;z-index:60}
@@ -620,7 +623,6 @@
 
   html{color-scheme:dark;scroll-behavior:smooth;scroll-padding-top:var(--nav-h)}
   ::selection{background:rgba(77,216,232,.30);color:#fff}
-  .theme-wrap{display:none}                      /* 다크 단일 운영 */
 
   body{
     background:var(--ink);
@@ -643,7 +645,7 @@
     background:transparent;transition:background .28s,border-color .28s,backdrop-filter .28s;
     overflow:visible}
   header.scrolled{
-    background:rgba(5,7,14,.72);border-bottom-color:var(--panel-line);
+    background:var(--header-scroll-bg);border-bottom-color:var(--panel-line);
     backdrop-filter:blur(var(--blur));-webkit-backdrop-filter:blur(var(--blur))}
   .nav-inner{
     max-width:1320px;margin:0 auto;padding:0 28px;height:var(--nav-h);
@@ -1107,6 +1109,31 @@
     --soon:#e8b34a;
   }
 
+  /* ===== 화이트 테마 — 톱 네비 테마 버튼(#themeBtn)에서 전환 ===== */
+  body.theme-white{
+    color-scheme:light;
+    --ink:#f3f5fb;
+    --ink-2:#ffffff;
+    --panel:#ffffff;
+    --surface-high:#edf0f8;
+    --surface-bright:#e2e7f4;
+    --panel-line:rgba(22,32,64,.14);
+    --txt:#12172c;
+    --txt-dim:rgba(18,23,44,.64);
+    --txt-faint:rgba(18,23,44,.40);
+    --accent:#0a8fa6;
+    --accent-2:#6a4fe0;
+    --on-accent:#ffffff;
+    --danger:#d8324a;
+    --grad:linear-gradient(120deg,#0a8fa6 0%,#2f7fe0 48%,#6a4fe0 100%);
+    --c0:#eef1f8; --c1:#dce6f6; --c2:#c9e3ef; --c3:#a9d6e6;
+    --c4:#1f9d6f; --c5:#2f7fe0; --c6:#b8860b;
+    --cell-soon:#e7ebf5;
+    --header-scroll-bg:rgba(255,255,255,.82);
+    --dock-bg:rgba(255,255,255,.86);
+    --dock-bg-strong:rgba(255,255,255,.9);
+  }
+
   /* ---------- 상단 메뉴: 5개 → 4개, 간격 확보 ---------- */
   .nav-links{gap:20px;margin-left:20px}
   .nav-links a{font-size:15px;padding:9px 18px;letter-spacing:.01em}
@@ -1300,7 +1327,7 @@
     inset:auto;left:0;right:0;top:0;width:auto;height:2px;border-radius:0;opacity:1;
     background:linear-gradient(90deg,transparent,var(--catc),transparent)}
   .cell.v10cell:not(.dark){background:linear-gradient(180deg,rgba(77,216,232,.09),rgba(139,123,255,.04))}
-  .cell.v10cell .cell-name{margin-top:9px;padding-right:0;font-size:13.5px;font-weight:800;color:#fff}
+  .cell.v10cell .cell-name{margin-top:9px;padding-right:0;font-size:13.5px;font-weight:800;color:var(--txt)}
   .cell.v10cell .cell-desc{margin-top:5px}
   .cell.v10cell.hasnew .cell-name{padding-right:0}
   .newflag{top:32px;right:8px}
@@ -1577,8 +1604,8 @@
     background:rgba(34,197,94,.18);color:#4ade80;box-shadow:0 0 14px rgba(34,197,94,.22)}
   .badge-live{background:rgba(34,197,94,.18);color:#4ade80;box-shadow:0 0 14px rgba(34,197,94,.22)}
   .rc-badge.live{background:rgba(34,197,94,.18);color:#4ade80}
-  /* 카드 안 기술그룹 — 회색이라 안 보이던 것을 흰색으로 */
-  .v10org{color:rgba(255,255,255,.94);font-weight:700}
+  /* 카드 안 기술그룹 — 회색이라 안 보이던 것을 진한 본문색으로(테마별로 대비 확보) */
+  .v10org{color:var(--txt);font-weight:700}
   /* 카드를 키워 아래 여백을 없앤다 */
   /* 카드가 남는 높이를 나눠 먹어 아래 여백이 남지 않는다 */
   #secPlatform > .reveal{flex:1;min-height:0;display:flex;flex-direction:column}
@@ -1777,7 +1804,7 @@
     width:min(620px,calc(100vw - 176px));height:48px;
     display:flex;align-items:center;gap:10px;padding:0 8px 0 16px;
     border-radius:999px;border:1px solid var(--panel-line);
-    background:linear-gradient(180deg,rgba(255,255,255,.06),rgba(255,255,255,.02)),rgba(9,13,24,.86);
+    background:linear-gradient(180deg,rgba(255,255,255,.06),rgba(255,255,255,.02)),var(--dock-bg);
     backdrop-filter:blur(var(--blur));-webkit-backdrop-filter:blur(var(--blur));
     box-shadow:0 14px 40px rgba(0,0,0,.5);
     transition:border-color .18s,box-shadow .18s,opacity .18s}
@@ -1800,7 +1827,7 @@
     position:fixed;right:18px;bottom:86px;z-index:59;
     width:44px;height:44px;border-radius:50%;cursor:pointer;
     border:1px solid var(--panel-line);color:var(--txt-dim);
-    background:linear-gradient(180deg,rgba(255,255,255,.07),rgba(255,255,255,.02)),rgba(9,13,24,.9);
+    background:linear-gradient(180deg,rgba(255,255,255,.07),rgba(255,255,255,.02)),var(--dock-bg-strong);
     backdrop-filter:blur(var(--blur));-webkit-backdrop-filter:blur(var(--blur));
     display:grid;place-items:center;box-shadow:0 8px 22px rgba(0,0,0,.45);
     opacity:0;visibility:hidden;transform:translateY(8px);
@@ -1942,12 +1969,11 @@
       </button>
       <div class="theme-wrap">
         <button class="gear nospin" id="themeBtn" title="테마" aria-label="테마 변경">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="13.5" cy="6.5" r="2.5"/><circle cx="17.5" cy="10.5" r="2.5"/><circle cx="8.5" cy="7.5" r="2.5"/><circle cx="6.5" cy="12.5" r="2.5"/><path d="M12 2a10 10 0 1 0 0 20 2.5 2.5 0 0 0 2-4 2.5 2.5 0 0 1 2-4h2a4 4 0 0 0 4-4 10 10 0 0 0-10-8z"/></svg>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 14.5A8.5 8.5 0 1 1 9.5 4a6.5 6.5 0 0 0 10.5 10.5z"/><path d="M18.5 2.5v3M17 4h3"/></svg>
         </button>
         <div class="theme-menu" id="themeMenu">
           <button data-theme="white"><span class="sw white"></span>화이트</button>
           <button data-theme="dark"><span class="sw dark"></span>다크</button>
-          <button data-theme="lg"><span class="sw lg"></span>LG</button>
         </div>
       </div>
       <button class="gear nospin" id="gear" title="설정" aria-label="설정 열기">
@@ -3879,9 +3905,8 @@ function renderPopularHub(){
 
 /* ---------- 테마 ---------- */
 function applyTheme(t){
-  document.body.classList.remove("theme-white","theme-lg");
+  document.body.classList.remove("theme-white");
   if(t==="white")document.body.classList.add("theme-white");
-  else if(t==="lg")document.body.classList.add("theme-lg");
   else t="dark";
   try{localStorage.setItem("infra_theme",t);}catch(e){}
   document.querySelectorAll("#themeMenu button").forEach(b=>b.classList.toggle("active",b.dataset.theme===t));
@@ -3896,7 +3921,7 @@ document.addEventListener("click",e=>{
   const m=document.getElementById("themeMenu");
   if(m.classList.contains("open")&&!e.target.closest(".theme-wrap"))m.classList.remove("open");
 });
-(function initTheme(){let t="lg";try{t=localStorage.getItem("infra_theme")||"lg";}catch(e){}applyTheme(t);})();
+(function initTheme(){let t="dark";try{t=localStorage.getItem("infra_theme")||"dark";}catch(e){}applyTheme(t);})();
 
 document.getElementById("showN").addEventListener("change",e=>{SHOW_N=parseInt(e.target.value)||5;EXPANDED=null;renderGrid();});
 
