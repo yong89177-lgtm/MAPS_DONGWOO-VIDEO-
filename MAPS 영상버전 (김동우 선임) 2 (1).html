@@ -1109,35 +1109,40 @@
     --soon:#e8b34a;
   }
 
-  /* ===== 화이트 테마 — 톱 네비 테마 버튼(#themeBtn)에서 전환 ===== */
+  /* ===== 화이트 테마 — 톱 네비 테마 버튼(#themeBtn)에서 전환 =====
+     팀 디자인 가이드: 메인 배경 #FFFFFF, 카드/구분/hover는 오프화이트(#F8F9FA 계열),
+     테두리는 미세한 그레이(#E5E7EB), 포인트 컬러는 1~2개로 제한, 본문은 완전한 검정
+     대신 다크 그레이(#111827)+세컨더리 그레이(#6B7280)로 계층을 준다.
+     카테고리 색(--cat-1..4)은 화이트 테마에서도 그대로 유지 — 여기서 건드리지 않는다. */
   body.theme-white{
     color-scheme:light;
     --ink:#ffffff;
-    --ink-2:#eef1f8;
-    --panel:#e6eaf4;
-    --surface-high:#dde3f0;
-    --surface-bright:#cfd7ea;
-    --panel-line:rgba(15,23,50,.24);
-    --txt:#0a0e1f;
-    --txt-dim:rgba(10,14,31,.80);
-    --txt-faint:rgba(10,14,31,.58);
-    --accent:#067388;
-    --accent-2:#5a3fd6;
+    --ink-2:#f8f9fa;
+    --panel:#f8f9fa;
+    --surface-high:#f5f5f7;
+    --surface-bright:#edeef1;
+    --panel-line:#e5e7eb;
+    --txt:#111827;
+    --txt-dim:#6b7280;
+    --txt-faint:#9ca3af;
+    --accent:#0891b2;
+    --accent-2:#6366f1;
     --on-accent:#ffffff;
-    --danger:#c81e3a;
-    --grad:linear-gradient(120deg,#067388 0%,#2266cf 48%,#5a3fd6 100%);
-    --c0:#eef1f8; --c1:#dce6f6; --c2:#c9e3ef; --c3:#a9d6e6;
-    --c4:#177a56; --c5:#2266cf; --c6:#9a6b06;
-    --cell-soon:#d6dcec;
+    --danger:#dc2626;
+    --grad:linear-gradient(120deg,#0891b2 0%,#6366f1 100%);
+    --c0:#f8f9fa; --c1:#f1f2f4; --c2:#e5e7eb; --c3:#d1d5db;
+    --c4:#16a34a; --c5:#6366f1; --c6:#d97706;
+    --cell-soon:#f1f2f4;
     --header-scroll-bg:rgba(255,255,255,.94);
-    --dock-bg:rgba(230,234,244,.95);
-    --dock-bg-strong:rgba(230,234,244,.97);
-    --card-bg:#e6eaf4;
-    --card-bg-live:linear-gradient(180deg,rgba(6,115,136,.14),rgba(90,63,214,.07)),#e6eaf4;
-    --card-shadow:0 1px 2px rgba(15,23,50,.08),0 8px 20px rgba(15,23,50,.10);
+    --dock-bg:rgba(248,249,250,.95);
+    --dock-bg-strong:rgba(248,249,250,.97);
+    --card-bg:#f8f9fa;
+    --card-bg-live:var(--card-bg);
+    --card-shadow:0 1px 2px rgba(17,24,39,.04),0 6px 16px rgba(17,24,39,.06);
   }
   /* 화이트 테마 카드 — 어두운 배경을 전제로 한 반투명 흰색 오버레이는 밝은 배경 위에서
-     거의 안 보이므로, 카드 자체 배경/그림자를 명시적으로 준다 (시인성 확보). */
+     거의 안 보이므로, 카드 자체 배경/그림자를 명시적으로 준다 (시인성 확보).
+     카드 상단의 카테고리 색 바(--catc)는 그대로 유지된다. */
   body.theme-white .cell{background:var(--card-bg);box-shadow:var(--card-shadow)}
   body.theme-white .cell:hover{background:var(--surface-bright)}
   body.theme-white .cell:not(.dark){background:var(--card-bg-live)}
