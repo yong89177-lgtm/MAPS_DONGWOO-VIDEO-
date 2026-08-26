@@ -16,6 +16,8 @@ npm start               # http://localhost:3000
 
 - 메인 페이지: `/index.html`
 - 관리자 승인 페이지: `/admin.html` (상단에 `.env`의 `ADMIN_KEY` 값을 입력해야 목록이 보입니다)
+- MAPS 대시보드 플랫폼: `/maps.html` (우측 상단 톱니 → 관리자 로그인/콘솔, 아이디 `admin` / 비밀번호는
+  `.env`의 `ADMIN_KEY` 값)
 
 ## 등록 → 승인 → 노출 흐름
 
@@ -39,6 +41,17 @@ npm start               # http://localhost:3000
 관리자 API(`/api/agents/admin`, `first-approve`, `second-approve`, `reject`, `preview`)는
 `.env`의 `ADMIN_KEY` 값을 `x-admin-key` 헤더(또는 `?key=` 쿼리)로 전달해야 호출할 수 있습니다.
 지금은 간단한 공유 키 방식이며, 실제 운영에서는 로그인 기반 관리자 계정/세션으로 교체를 권장합니다.
+
+## MAPS 대시보드 관리 콘솔 (`/maps.html`)
+
+`/maps.html`의 우측 상단 톱니 → **관리자 로그인/콘솔**에서 팀별 AI Agent 대시보드를 편집하고
+"대시보드 저장"으로 반영할 수 있습니다.
+
+- 로그인: `POST /api/login` (아이디 `admin`, 비밀번호 `.env`의 `ADMIN_KEY`) → 서버가 세션 쿠키를 내려줍니다.
+  세션 확인은 `GET /api/me`, 로그아웃은 `POST /api/logout`.
+- 대시보드 데이터는 `GET /data/dashboards.json`으로 불러오고, `POST /api/save`(로그인 필요)로
+  `data/dashboards.json`에 저장합니다. 별도 DB 없이 파일 기반이며, 세션은 서버 메모리에만 보관되므로
+  서버를 재시작하면 다시 로그인해야 합니다.
 
 ## 보안 참고
 
