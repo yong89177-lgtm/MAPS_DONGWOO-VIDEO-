@@ -255,7 +255,7 @@
   .org{border:1px solid var(--panel-line);border-radius:14px;padding:14px;background:var(--panel);margin-bottom:14px}
   .org-head{display:flex;gap:8px;align-items:center;margin-bottom:12px}
   .org-del{background:rgba(255,107,107,.1);border:1px solid rgba(255,107,107,.3);color:var(--danger);border-radius:8px;padding:7px 10px;font-size:12px;font-weight:600;cursor:pointer;white-space:nowrap}
-  .item{display:grid;grid-template-columns:46px 1.2fr 1.4fr 0.9fr 36px;gap:8px;margin-bottom:8px;align-items:center}
+  .item{display:grid;grid-template-columns:46px 1.1fr 1.2fr 0.8fr 0.8fr 36px;gap:8px;margin-bottom:8px;align-items:center}
   .item input[data-f="name"]{font-weight:700}
   .item input[data-f="order"]{text-align:center;padding:8px 4px}
   .orgtabs{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:16px}
@@ -264,13 +264,13 @@
   .orgtab.active{background:rgba(77,216,232,.12);border-color:var(--accent);color:var(--accent)}
   .item-del{background:none;border:1px solid var(--panel-line);color:var(--txt-faint);border-radius:8px;cursor:pointer;height:36px;font-size:16px}
   .item-del:hover{color:var(--danger);border-color:var(--danger)}
-  .col-labels{display:grid;grid-template-columns:46px 1.2fr 1.4fr 0.9fr 36px;gap:8px;font-size:11px;color:var(--txt-faint);font-weight:600;margin-bottom:6px;padding:0 2px}
+  .col-labels{display:grid;grid-template-columns:46px 1.1fr 1.2fr 0.8fr 0.8fr 36px;gap:8px;font-size:11px;color:var(--txt-faint);font-weight:600;margin-bottom:6px;padding:0 2px}
   .addbtn{background:rgba(77,216,232,.1);border:1px dashed rgba(77,216,232,.4);color:var(--accent);border-radius:9px;padding:9px;width:100%;font-size:13px;font-weight:600;cursor:pointer;margin-top:4px}
   /* 일반계정: 조직/AI 삭제 숨김 (관리자만 가능) */
   body.role-user .org-del,
   body.role-user .item-del{display:none}
   body.role-user .item,
-  body.role-user .col-labels{grid-template-columns:46px 1.2fr 1.4fr 0.9fr}
+  body.role-user .col-labels{grid-template-columns:46px 1.1fr 1.2fr 0.8fr 0.8fr}
   .addorg{background:var(--panel);border:1px dashed var(--panel-line);color:var(--txt-dim);border-radius:12px;padding:12px;width:100%;font-size:13px;font-weight:600;cursor:pointer}
   .addorg:hover{border-color:var(--accent);color:var(--accent)}
 
@@ -310,8 +310,8 @@
     header{padding:34px 0 22px}
     .topright{top:0;right:18px}
     .manual-link{top:30px;right:18px;font-size:11px}
-    .item,.col-labels{grid-template-columns:40px 1fr 1fr 1fr 34px}
-    body.role-user .item,body.role-user .col-labels{grid-template-columns:40px 1fr 1fr 1fr}
+    .item,.col-labels{grid-template-columns:40px 1fr 1fr 1fr 1fr 34px}
+    body.role-user .item,body.role-user .col-labels{grid-template-columns:40px 1fr 1fr 1fr 1fr}
     .acc-add{grid-template-columns:1fr 1fr}
   }
   @media not all{ /* standalone: 감속모션 게이트 해제 */
@@ -2977,12 +2977,12 @@ function renderForm(){
   const ci=ACTIVE_ORG;
   const org=document.createElement("div");org.className="org";
   org.innerHTML=`<div class="org-head"><input data-ci="${ci}" data-f="team" placeholder="조직명" value="${esc(col.team)}"><input data-ci="${ci}" data-f="tag" placeholder="영문 태그(선택)" value="${esc(col.tag||"")}" style="max-width:200px"><button class="org-del" data-delorg="${ci}">조직 삭제</button></div>
-    <div class="col-labels"><span>순서</span><span>AI명</span><span>주소 (IP/URL)</span><span>담당자</span><span></span></div><div class="items-wrap"></div>
+    <div class="col-labels"><span>순서</span><span>AI명</span><span>주소 (IP/URL)</span><span>담당자</span><span>조직</span><span></span></div><div class="items-wrap"></div>
     <button class="addbtn" data-additem="${ci}">+ AI 추가</button>`;
   const wrap=org.querySelector(".items-wrap");
   (col.items||[]).forEach((it,ii)=>{
     const row=document.createElement("div");
-    row.innerHTML=`<div class="item"><input data-ci="${ci}" data-ii="${ii}" data-f="order" type="number" min="1" placeholder="#" value="${(+it.order||0)}"><input data-ci="${ci}" data-ii="${ii}" data-f="name" placeholder="AI명" value="${esc(it.name)}"><input data-ci="${ci}" data-ii="${ii}" data-f="addr" placeholder="비우면 준비중" value="${esc(it.addr||"")}"><input data-ci="${ci}" data-ii="${ii}" data-f="owner" placeholder="담당자" value="${esc(it.owner||"")}"><button class="item-del" data-delitem="${ci}:${ii}" title="삭제">×</button><input data-ci="${ci}" data-ii="${ii}" data-f="desc" placeholder="설명" value="${esc(it.desc||"")}" style="grid-column:1 / -1;margin-top:2px"><div style="grid-column:1 / -1;display:flex;gap:8px;margin-top:2px"><input data-ci="${ci}" data-ii="${ii}" data-f="version" placeholder="버전 (Live 타일 표기, 예: v0.15)" value="${esc(it.version||"")}" style="flex:1;min-width:0;margin:0"><input data-ci="${ci}" data-ii="${ii}" data-f="openDate" placeholder="오픈예정일 (준비중 타일 표기, 예: 2026-07-01)" value="${esc(it.openDate||"")}" style="flex:1;min-width:0;margin:0"></div><label style="grid-column:1 / -1;font-size:11px;color:var(--txt-dim);display:flex;align-items:center;gap:5px;margin-top:2px"><input type="checkbox" data-ci="${ci}" data-ii="${ii}" data-f="locked" ${it.locked?"checked":""} style="width:auto">접속 시 별도 로그인 필요 (자물쇠 표시)</label><div class="prep-row"><button type="button" class="prep-btn${it.pin?' on':''}" data-pin="${ci}:${ii}">${it.pin?'📌 상단 고정됨':'상단 고정'}</button><button type="button" class="prep-btn${it.prep?' on':''}" data-prep="${ci}:${ii}">${it.prep?'✓ 준비중 · 관리자 전용':'준비중으로 전환'}</button>${it.prep?'<span class="prep-hint">링크 유지 · 비관리자 접속 불가</span>':'<span class="prep-hint">주소 유지한 채 관리자만 접근</span>'}</div></div>`;
+    row.innerHTML=`<div class="item"><input data-ci="${ci}" data-ii="${ii}" data-f="order" type="number" min="1" placeholder="#" value="${(+it.order||0)}"><input data-ci="${ci}" data-ii="${ii}" data-f="name" placeholder="AI명" value="${esc(it.name)}"><input data-ci="${ci}" data-ii="${ii}" data-f="addr" placeholder="비우면 준비중" value="${esc(it.addr||"")}"><input data-ci="${ci}" data-ii="${ii}" data-f="owner" placeholder="담당자" value="${esc(it.owner||"")}"><input data-ci="${ci}" data-ii="${ii}" data-f="org" placeholder="조직명" value="${esc(it.org||"")}"><button class="item-del" data-delitem="${ci}:${ii}" title="삭제">×</button><input data-ci="${ci}" data-ii="${ii}" data-f="desc" placeholder="설명" value="${esc(it.desc||"")}" style="grid-column:1 / -1;margin-top:2px"><div style="grid-column:1 / -1;display:flex;gap:8px;margin-top:2px"><input data-ci="${ci}" data-ii="${ii}" data-f="version" placeholder="버전 (Live 타일 표기, 예: v0.15)" value="${esc(it.version||"")}" style="flex:1;min-width:0;margin:0"><input data-ci="${ci}" data-ii="${ii}" data-f="openDate" placeholder="오픈예정일 (준비중 타일 표기, 예: 2026-07-01)" value="${esc(it.openDate||"")}" style="flex:1;min-width:0;margin:0"></div><label style="grid-column:1 / -1;font-size:11px;color:var(--txt-dim);display:flex;align-items:center;gap:5px;margin-top:2px"><input type="checkbox" data-ci="${ci}" data-ii="${ii}" data-f="locked" ${it.locked?"checked":""} style="width:auto">접속 시 별도 로그인 필요 (자물쇠 표시)</label><div class="prep-row"><button type="button" class="prep-btn${it.pin?' on':''}" data-pin="${ci}:${ii}">${it.pin?'📌 상단 고정됨':'상단 고정'}</button><button type="button" class="prep-btn${it.prep?' on':''}" data-prep="${ci}:${ii}">${it.prep?'✓ 준비중 · 관리자 전용':'준비중으로 전환'}</button>${it.prep?'<span class="prep-hint">링크 유지 · 비관리자 접속 불가</span>':'<span class="prep-hint">주소 유지한 채 관리자만 접근</span>'}</div></div>`;
     wrap.appendChild(row.firstElementChild);
   });
   orgList.appendChild(org);
