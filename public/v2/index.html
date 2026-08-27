@@ -4874,7 +4874,14 @@ if(navigator.sendBeacon){try{navigator.sendBeacon("api/site-visit");}catch(e){}}
     var counts = c.map(function(col){
       return (col.items || []).filter(function(it){ return !ORG_SEL || it.org === ORG_SEL; }).length;
     });
-    var max = Math.max.apply(null, counts.concat([1]));
+    /* Y축(막대 높이 기준)은 특정 조직으로 필터링해도 고정되어야 한다 — 그래야 "전체" 대비
+       필터링된 조직의 비중이 낮으면 막대도 그만큼 낮게 보인다. 필터와 무관한 전체 개수로
+       max 를 구한다 (필터링된 counts 로 구하면 필터 결과 중 최댓값이 항상 100%가 되어버린다). */
+    var allCounts = c.map(function(col){ return (col.items || []).length; });
+    var max = Math.max.apply(null, allCounts.concat([1]));
+    /* 특정 조직으로 필터링하면(ORG_SEL 있음) "전체" 기준 그대로는 막대가 너무 작아 보이므로,
+       기준값을 절반으로 낮춰(=높이를 2배로) 보되, 100%는 넘지 않게 막는다. */
+    var scaleMax = ORG_SEL ? Math.max(1, max / 2) : max;
     if(box.children.length !== c.length){
       box.innerHTML = "";
       c.forEach(function(col, i){
@@ -4892,7 +4899,7 @@ if(navigator.sendBeacon){try{navigator.sendBeacon("api/site-visit");}catch(e){}}
       var n = counts[i];
       d.classList.toggle("empty", n === 0);
       d.querySelector(".cc-num").textContent = String(n);
-      d.querySelector(".cc-bar").style.height = (n ? Math.max(10, Math.round(n / max * 100)) : 4) + "%";
+      d.querySelector(".cc-bar").style.height = (n ? Math.max(10, Math.min(100, Math.round(n / scaleMax * 100))) : 4) + "%";
     }
   }
 
