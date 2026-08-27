@@ -3,3 +3,12 @@ node_modules/
 uploads/*.html
 uploads/*.htm
 !uploads/.gitkeep
+
+# v2 백엔드(계정/로그인/승인)가 실행 중 만들어내는 실사용 데이터.
+# 서버가 없으면 기본값으로 자동 생성하므로 커밋할 필요가 없고, 커밋해두면
+# git checkout/브랜치 전환으로 실제 등록·승인 데이터가 통째로 날아갈 위험이 있다.
+data/accounts.json
+data/signup-requests.json
+data/dash-requests.json
+data/dashboards.json
+uploads/dash-requests/
