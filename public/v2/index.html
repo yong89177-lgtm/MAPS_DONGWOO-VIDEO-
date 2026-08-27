@@ -125,12 +125,11 @@
   .col-head{cursor:pointer}
   .col-head:hover .col-title{color:var(--accent)}
   .col-caret{font-size:12px;color:var(--txt-faint)}
-  /* align-content:start 가 없으면 그리드 행들이 .cells 의 남는 세로 공간(flex:1 로
-     화면 높이만큼 늘어남)을 억지로 나눠 가져서 카드가 세로로 길게 늘어난다.
-     align-items:start 는 각 카드 자체도 자기 행 높이에 맞춰 늘어나지 않게 막는다. */
+  /* align-content/align-items 를 기본값(stretch)으로 둔다 — .cells 가 형제 컬럼
+     높이에 맞춰 늘어난 공간(#secPlatform .grid{align-items:stretch})을 그리드 행이
+     나눠 가지면서 카드까지 함께 늘어나야, 두 줄 아래 빈 공백 없이 꽉 찬다. */
   .col.expanded .cells{
-    display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:8px;
-    align-content:start;align-items:start}
+    display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:8px}
   /* 확장된 카테고리 칸이 4장을 편하게 담을 만큼 넓을 때만 한 줄에 4개로 고정한다.
      좁은 화면에서까지 4개로 강제하면 글자가 눌려 깨진다. */
   @media (min-width:1200px){
