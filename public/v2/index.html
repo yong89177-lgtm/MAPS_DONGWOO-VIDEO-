@@ -125,7 +125,12 @@
   .col-head{cursor:pointer}
   .col-head:hover .col-title{color:var(--accent)}
   .col-caret{font-size:12px;color:var(--txt-faint)}
-  .col.expanded .cells{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:8px}
+  /* align-content:start 가 없으면 그리드 행들이 .cells 의 남는 세로 공간(flex:1 로
+     화면 높이만큼 늘어남)을 억지로 나눠 가져서 카드가 세로로 길게 늘어난다.
+     align-items:start 는 각 카드 자체도 자기 행 높이에 맞춰 늘어나지 않게 막는다. */
+  .col.expanded .cells{
+    display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:8px;
+    align-content:start;align-items:start}
   .more-btn{margin-top:8px;width:100%;background:rgba(127,127,127,.08);border:1px dashed var(--panel-line);color:var(--txt-dim);border-radius:9px;padding:8px;cursor:pointer;font-weight:800;letter-spacing:3px;font-size:14px}
   .more-btn:hover{border-color:var(--accent);color:var(--accent)}
   .col{background:linear-gradient(180deg,var(--panel),var(--ink-2));border:1px solid var(--panel-line);border-radius:16px;padding:20px 18px 22px}
