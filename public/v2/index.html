@@ -131,6 +131,11 @@
   .col.expanded .cells{
     display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:8px;
     align-content:start;align-items:start}
+  /* 확장된 카테고리 칸이 4장을 편하게 담을 만큼 넓을 때만 한 줄에 4개로 고정한다.
+     좁은 화면에서까지 4개로 강제하면 글자가 눌려 깨진다. */
+  @media (min-width:1200px){
+    .col.expanded .cells{grid-template-columns:repeat(4,1fr)}
+  }
   .more-btn{margin-top:8px;width:100%;background:rgba(127,127,127,.08);border:1px dashed var(--panel-line);color:var(--txt-dim);border-radius:9px;padding:8px;cursor:pointer;font-weight:800;letter-spacing:3px;font-size:14px}
   .more-btn:hover{border-color:var(--accent);color:var(--accent)}
   .col{background:linear-gradient(180deg,var(--panel),var(--ink-2));border:1px solid var(--panel-line);border-radius:16px;padding:20px 18px 22px}
