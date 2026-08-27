@@ -2565,7 +2565,7 @@ const LIVE_COLOR="var(--cell-live)", SOON_COLOR="var(--cell-soon)";
 function esc(t){const d=document.createElement("div");d.textContent=t==null?"":t;return d.innerHTML}
 function isLive(it){return it.addr&&it.addr.trim()!==""&&!it.prep}
 function hasAddr(it){return it.addr&&it.addr.trim()!==""}
-function normAddr(a){a=(a||"").trim();if(!a)return"";return /^https?:\/\//i.test(a)?a:"http://"+a}
+function normAddr(a){a=(a||"").trim();if(!a)return"";if(/^https?:\/\//i.test(a))return a;if(a[0]==="/")return location.origin+a;return"http://"+a}
 
 /* 카테고리 순서는 아래 ORG_ORDER 와 문자열이 정확히 일치해야 한다.
    addr 가 비어 있으면 "준비중", 주소가 있으면 "운영중(LIVE)"으로 표시된다.
