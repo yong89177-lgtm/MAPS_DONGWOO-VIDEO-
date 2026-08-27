@@ -1901,8 +1901,10 @@
   body.theme-white .comm-card:hover{background:var(--surface-bright)}
   body.theme-white .cell:not(.dark),
   body.theme-white .cell.v10cell:not(.dark){background:var(--card-bg-live)}
-  /* 공지사항 박스는 카드색이 아니라 페이지 배경과 동일하게 */
-  body.theme-white .ih-card{background:var(--ink);box-shadow:none}
+  /* 공지사항 박스(.ih-card)는 대시보드에서 .dash-panel.p-notice 안에 한 번 더
+     들어있는 구조라, 페이지 배경색을 쓰면 감싸고 있는 패널과 색이 어긋나 보인다.
+     감싸는 패널과 같은 카드색으로 맞춘다. */
+  body.theme-white .ih-card{background:var(--card-bg);box-shadow:none}
   body.theme-white #agentRegBtn{color:#ffffff}
   /* 히어로 문구 그림자는 어두운 캔버스 배경 전제였다 — 밝은 배경에선 없앤다 */
   body.theme-white #secHome .hero-title{filter:none}
