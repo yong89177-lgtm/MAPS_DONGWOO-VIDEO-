@@ -125,6 +125,7 @@ body {
 }
 
 .agent-card {
+  position: relative;
   background: var(--surface);
   border: 1px solid var(--border);
   border-radius: var(--radius);
@@ -143,7 +144,34 @@ body {
 
 .agent-card h3 {
   margin: 0 0 8px;
+  padding-right: 26px;
   font-size: 16px;
+}
+
+.dl-btn {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  width: 26px;
+  height: 26px;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  background: #eef0f6;
+  border: 1px solid var(--border);
+  color: var(--text);
+  text-decoration: none;
+  font-size: 13px;
+  line-height: 1;
+  transition: background 0.15s ease, border-color 0.15s ease, color 0.15s ease;
+}
+
+.dl-btn:hover,
+.dl-btn:focus-visible {
+  background: var(--primary);
+  border-color: var(--primary);
+  color: #fff;
+  outline: none;
 }
 
 .agent-desc {

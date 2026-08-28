@@ -47,8 +47,11 @@ function renderSections() {
 }
 
 function cardHtml(agent) {
+  const fileName = agent.originalFileName || `${agent.name}.html`;
   return `
     <article class="agent-card" data-id="${agent.id}" tabindex="0" role="button">
+      <a class="dl-btn" href="/api/agents/${agent.id}/file" download="${escapeAttr(fileName)}"
+         title="등록한 HTML 다운로드" aria-label="등록한 HTML 다운로드">⬇</a>
       <h3>${escapeHtml(agent.name)}</h3>
       <p class="agent-desc">${escapeHtml(agent.description)}</p>
       <p class="agent-meta">등록자: ${escapeHtml(agent.developer)}</p>
@@ -62,6 +65,10 @@ function escapeHtml(str) {
   return div.innerHTML;
 }
 
+function escapeAttr(str) {
+  return escapeHtml(str).replace(/"/g, '&quot;');
+}
+
 function bindEvents() {
   document.getElementById('openRegisterBtn').addEventListener('click', openRegisterModal);
   document.getElementById('closeRegisterBtn').addEventListener('click', closeRegisterModal);
@@ -70,11 +77,13 @@ function bindEvents() {
 
   const sections = document.getElementById('categorySections');
   sections.addEventListener('click', (e) => {
+    if (e.target.closest('.dl-btn')) return; // 다운로드 링크는 기본 동작(파일 저장)만 하고 뷰어는 열지 않는다
     const card = e.target.closest('.agent-card');
     if (card) openViewer(card.dataset.id);
   });
   sections.addEventListener('keydown', (e) => {
     if (e.key !== 'Enter' && e.key !== ' ') return;
+    if (e.target.closest('.dl-btn')) return;
     const card = e.target.closest('.agent-card');
     if (card) {
       e.preventDefault();
