@@ -4064,7 +4064,10 @@ document.addEventListener("click",e=>{
   const m=document.getElementById("themeMenu");
   if(m.classList.contains("open")&&!e.target.closest(".theme-wrap"))m.classList.remove("open");
 });
-(function initTheme(){let t="dark";try{t=localStorage.getItem("infra_theme")||"dark";}catch(e){}applyTheme(t);})();
+/* 이전에 저장된 테마와 무관하게, 열 때는 항상 화이트 테마로 시작한다.
+   세션 중 다크로 바꾸는 건 여전히 가능하지만(applyTheme 이 localStorage 에 저장은 함),
+   다음에 다시 열면 그 값을 읽지 않고 또 화이트로 시작한다. */
+(function initTheme(){applyTheme("white");})();
 
 document.getElementById("showN").addEventListener("change",e=>{SHOW_N=parseInt(e.target.value)||5;EXPANDED=null;renderGrid();});
 
