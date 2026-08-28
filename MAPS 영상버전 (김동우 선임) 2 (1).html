@@ -4894,7 +4894,9 @@ if(navigator.sendBeacon){try{navigator.sendBeacon("api/site-visit");}catch(e){}}
     el.appendChild(star);
 
     /* addr 이 /api/dash-file?id=... 형태일 때만(=등록 시 실제 HTML 파일이 첨부된 경우) 다운로드 버튼을 단다 */
-    var fileMatch = /^\/api\/dash-file\?id=/.test(String(it.addr || ""));
+    /* normAddr()/hasAddr() 는 addr 앞뒤 공백을 trim 하고 판단하므로, 같은 기준으로 맞춘다 —
+       그렇지 않으면 카드는 정상적으로 열리는데 다운로드 버튼만 안 뜨는 불일치가 생긴다. */
+    var fileMatch = /^\/api\/dash-file\?id=/.test(String(it.addr || "").trim());
     if(fileMatch){
       var dl = document.createElement("button");
       dl.type = "button";
