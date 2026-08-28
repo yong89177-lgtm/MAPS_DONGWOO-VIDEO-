@@ -1903,27 +1903,27 @@
 
 
   /* ==========================================================================
-     PTIC AI Platform V20 — 다운로드 버튼 커스텀 툴팁
+     PTIC AI Platform V20 — 다운로드 버튼 커스텀 툴팁 (버튼 위쪽에 표시)
      기본 title 속성 툴팁(브라우저 OS 스타일, 흰 배경)이 카드 디자인과 안 어울려서
      사이트 다크 글래스 UI(.dockbar 등)와 같은 톤의 말풍선으로 교체한다.
-     .cell/.t5 가 overflow:hidden 이라 버튼 위로 띄우면 카드 상단에서 잘리므로 아래로 띄운다. */
-  .dlbtn::after{
-    content:attr(data-tip);position:absolute;top:calc(100% + 9px);right:0;
+     .cell/.t5 가 overflow:hidden 이라 버튼의 자식(::after)으로 위쪽에 띄우면 카드
+     상단에서 잘린다 — 그래서 카드 DOM 밖(body 아래)에 별도 엘리먼트를 두고
+     position:fixed 로 버튼 위쪽 좌표에 직접 배치한다(JS: showDlTip/hideDlTip). */
+  .dl-tip{
+    position:fixed;top:0;left:0;z-index:200;pointer-events:none;
     white-space:nowrap;font-size:11.5px;font-weight:700;color:var(--txt);
     padding:6px 10px;border-radius:8px;border:1px solid var(--panel-line);
     background:linear-gradient(180deg,rgba(255,255,255,.08),rgba(255,255,255,.02)),rgba(9,13,24,.94);
     box-shadow:0 10px 24px rgba(0,0,0,.4);
     backdrop-filter:blur(var(--blur));-webkit-backdrop-filter:blur(var(--blur));
-    opacity:0;visibility:hidden;transform:translateY(-4px);pointer-events:none;z-index:20;
+    opacity:0;visibility:hidden;transform:translateY(4px);
     transition:opacity .15s,transform .15s,visibility .15s}
-  .dlbtn::before{
-    content:"";position:absolute;top:calc(100% + 4px);right:8px;
-    border:5px solid transparent;border-bottom-color:rgba(9,13,24,.94);
-    opacity:0;visibility:hidden;pointer-events:none;z-index:20;transition:opacity .15s,visibility .15s}
-  .dlbtn:hover::after,.dlbtn:focus-visible::after,
-  .dlbtn:hover::before,.dlbtn:focus-visible::before{opacity:1;visibility:visible;transform:none}
+  .dl-tip.show{opacity:1;visibility:visible;transform:translateY(0)}
+  .dl-tip::after{
+    content:"";position:absolute;top:100%;right:8px;
+    border:5px solid transparent;border-top-color:rgba(9,13,24,.94)}
   /* 화이트 테마에서도 같은 다크 말풍선을 그대로 써 카드 배경과 상관없이 대비를 유지한다 */
-  body.theme-white .dlbtn::after{color:#f2f4f7}
+  body.theme-white .dl-tip{color:#f2f4f7}
 
 
   /* ==========================================================================
@@ -4926,6 +4926,32 @@ if(navigator.sendBeacon){try{navigator.sendBeacon("api/site-visit");}catch(e){}}
     return '<button type="button" class="v10like' + (on ? " on" : "") + '" title="좋아요">' +
            '<span class="v10heart">' + (on ? "♥" : "♡") + '</span><span>' + likeCount(team, it) + '</span></button>';
   }
+
+  /* 다운로드 버튼 툴팁 — .cell/.t5 가 overflow:hidden 이라 버튼의 자식으로는 위쪽에 못 띄우므로
+     body 바로 아래 하나만 두고 position:fixed 좌표를 매번 계산해서 옮긴다(포탈 방식). */
+  var dlTipEl = null;
+  function ensureDlTip(){
+    if(!dlTipEl){
+      dlTipEl = document.createElement("div");
+      dlTipEl.className = "dl-tip";
+      document.body.appendChild(dlTipEl);
+    }
+    return dlTipEl;
+  }
+  function showDlTip(btn){
+    var tip = ensureDlTip();
+    tip.textContent = btn.getAttribute("data-tip") || "";
+    tip.classList.remove("show");
+    var r = btn.getBoundingClientRect();
+    var left = r.right - tip.offsetWidth;
+    if(left < 8) left = 8;
+    tip.style.left = left + "px";
+    tip.style.top = (r.top - tip.offsetHeight - 9) + "px";
+    tip.classList.add("show");
+  }
+  function hideDlTip(){
+    if(dlTipEl) dlTipEl.classList.remove("show");
+  }
   /* 카드 안의 좋아요·즐겨찾기·다운로드 버튼 배선 (그리드 셀·TOP5 공통) */
   function wireCard(el, col, it){
     var lb = el.querySelector(".v10like");
@@ -4952,11 +4978,15 @@ if(navigator.sendBeacon){try{navigator.sendBeacon("api/site-visit");}catch(e){}}
       dl.className = "dlbtn";
       dl.innerHTML = "⬇";
       var dlCount = (typeof DL_COUNTS !== "undefined" && DL_COUNTS && DL_COUNTS[fileId]) || 0;
-      /* 기본 title 툴팁 대신 커스텀 말풍선(.dlbtn::after, data-tip 사용)을 쓴다.
+      /* 기본 title 툴팁 대신 커스텀 말풍선(.dl-tip, showDlTip/hideDlTip)을 쓴다.
          title 을 남겨두면 커스텀 툴팁과 브라우저 OS 툴팁이 같이 뜨므로 title 은 없앤다.
          스크린리더용 설명은 aria-label 로 대체한다. */
       dl.setAttribute("data-tip", "다운로드 " + dlCount + "회");
       dl.setAttribute("aria-label", "등록한 HTML 다운로드 (" + dlCount + "회 다운로드됨)");
+      dl.addEventListener("mouseenter", function(){ showDlTip(dl); });
+      dl.addEventListener("mouseleave", hideDlTip);
+      dl.addEventListener("focus", function(){ showDlTip(dl); });
+      dl.addEventListener("blur", hideDlTip);
       dl.addEventListener("click", function(e){
         e.preventDefault(); e.stopPropagation();
         var url = normAddr(it.addr) + "&download=1";
@@ -4968,6 +4998,7 @@ if(navigator.sendBeacon){try{navigator.sendBeacon("api/site-visit");}catch(e){}}
             DL_COUNTS[fileId] = ((DL_COUNTS[fileId] || 0) + 1);
             dl.setAttribute("data-tip", "다운로드 " + DL_COUNTS[fileId] + "회");
             dl.setAttribute("aria-label", "등록한 HTML 다운로드 (" + DL_COUNTS[fileId] + "회 다운로드됨)");
+            showDlTip(dl);
           }
         }catch(err){}
       });
