@@ -146,6 +146,9 @@
   .notice-box .nb-tag{font-size:11px;font-weight:700;color:var(--accent);flex-shrink:0}
   .favstar:hover{color:#ffd54a;transform:scale(1.18)}
   .favstar.on{color:#ffd54a}
+  /* 등록한 HTML 다운로드 — 즐겨찾기 별과 같은 자리 체계를 쓰다가 V17 패치에서 좌우로 나뉜다 */
+  .dlbtn{position:absolute;top:7px;right:8px;z-index:3;background:none;border:none;cursor:pointer;font-size:15px;line-height:1;color:rgba(255,255,255,.55);padding:2px;text-shadow:0 1px 2px rgba(0,0,0,.35);transition:transform .12s,color .12s}
+  .dlbtn:hover{color:#7ff0ff;transform:scale(1.12)}
   /* 장애표시 유예 (관리자 전용) */
   .waivebtn{position:absolute;bottom:7px;right:8px;z-index:3;background:rgba(0,0,0,.35);border:1px solid rgba(255,255,255,.25);border-radius:6px;cursor:pointer;font-size:10px;font-weight:800;line-height:1;color:#fff;padding:3px 7px}
   .waivebtn:hover{border-color:#fff}
@@ -1761,6 +1764,28 @@
   #secTop5 .t5 > .favstar{position:absolute;top:13px;right:15px;z-index:3}
   /* 우측 상단으로 올라온 별과 카테고리 칩·상태 배지가 겹치지 않게 자리를 비운다 */
   #secTop5 .v10top{padding-right:34px}
+
+
+  /* ==========================================================================
+     PTIC AI Platform V17 — 카드 다운로드 버튼 추가 · 즐겨찾기 별 좌측 이동
+     즐겨찾기 별이 있던 자리에 등록 HTML 다운로드 버튼을 새로 두고, 별은 그만큼 왼쪽으로 민다.
+     ========================================================================== */
+
+  /* ---------- 카테고리 카드 (그리드 셀) ----------
+     .dlbtn 기본 규칙(줄 149 부근)이 .cell > *{position:relative} 보다 뒤에 있어
+     이미 position:absolute 가 유지되므로 위치값만 지정하면 된다. */
+  .cell.v10cell .dlbtn{top:11px;right:12px}
+  .favstar{right:38px}
+
+  /* ---------- TOP5 카드 ----------
+     .t5 > *{position:relative} 를 다시 덮어써야 하는 이유는 별과 동일하다. */
+  #secTop5 .t5 > .dlbtn{position:absolute;top:13px;right:15px;z-index:3}
+  #secTop5 .t5 > .favstar{right:43px}
+
+  /* 별 + 다운로드 버튼이 나란히 있어 NEW 배지·상단 칩과 겹치지 않게 자리를 더 비운다 */
+  .newflag{right:64px}
+  .cell.hasnew .cell-name{padding-right:92px}
+  #secTop5 .v10top{padding-right:60px}
 
 
   /* ==========================================================================
@@ -4758,7 +4783,25 @@ if(navigator.sendBeacon){try{navigator.sendBeacon("api/site-visit");}catch(e){}}
     return '<button type="button" class="v10like' + (on ? " on" : "") + '" title="좋아요">' +
            '<span class="v10heart">' + (on ? "♥" : "♡") + '</span><span>' + likeCount(team, it) + '</span></button>';
   }
-  /* 카드 안의 좋아요·즐겨찾기 버튼 배선 (그리드 셀·TOP5 공통) */
+  /* 등록 시 업로드한 HTML 다운로드 — 서버는 team::name 을 key 로 저장된 파일을 내려준다 */
+  async function downloadAgentHtml(team, name){
+    var key = team + "::" + name;
+    try{
+      var r = await fetch("api/dash-html?key=" + encodeURIComponent(key));
+      if(!r.ok){ alert("다운로드할 HTML 파일이 없습니다."); return; }
+      var blob = await r.blob();
+      var cd = r.headers.get("Content-Disposition") || "";
+      var m = /filename\*?=(?:UTF-8'')?"?([^";]+)"?/i.exec(cd);
+      var fname = m ? decodeURIComponent(m[1]) : (name + ".html");
+      var url = URL.createObjectURL(blob);
+      var a = document.createElement("a");
+      a.href = url; a.download = fname;
+      document.body.appendChild(a); a.click(); a.remove();
+      setTimeout(function(){ URL.revokeObjectURL(url); }, 1000);
+    }catch(e){ alert("다운로드 중 오류가 발생했습니다."); }
+  }
+
+  /* 카드 안의 좋아요·즐겨찾기·다운로드 버튼 배선 (그리드 셀·TOP5 공통) */
   function wireCard(el, col, it){
     var lb = el.querySelector(".v10like");
     if(lb) lb.addEventListener("click", function(e){ e.preventDefault(); e.stopPropagation(); toggleLike(col.team, it); });
@@ -4770,6 +4813,14 @@ if(navigator.sendBeacon){try{navigator.sendBeacon("api/site-visit");}catch(e){}}
     star.title = on ? "즐겨찾기 해제" : "즐겨찾기";
     star.addEventListener("click", function(e){ e.preventDefault(); e.stopPropagation(); window.toggleFav(col.team, it.name); });
     el.appendChild(star);
+
+    var dl = document.createElement("button");
+    dl.type = "button";
+    dl.className = "dlbtn";
+    dl.innerHTML = "⬇";
+    dl.title = "등록한 HTML 다운로드";
+    dl.addEventListener("click", function(e){ e.preventDefault(); e.stopPropagation(); downloadAgentHtml(col.team, it.name); });
+    el.appendChild(dl);
   }
 
   /* ---------------- TOP5 — 좋아요 상위 5개 ---------------- */
