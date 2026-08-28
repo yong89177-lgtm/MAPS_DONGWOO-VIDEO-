@@ -146,9 +146,12 @@
   .notice-box .nb-tag{font-size:11px;font-weight:700;color:var(--accent);flex-shrink:0}
   .favstar:hover{color:#ffd54a;transform:scale(1.18)}
   .favstar.on{color:#ffd54a}
-  /* 등록한 HTML 다운로드 — 즐겨찾기 별과 같은 자리 체계를 쓰다가 V17 패치에서 좌우로 나뉜다 */
-  .dlbtn{position:absolute;top:7px;right:8px;z-index:3;background:none;border:none;cursor:pointer;font-size:15px;line-height:1;color:rgba(255,255,255,.55);padding:2px;text-shadow:0 1px 2px rgba(0,0,0,.35);transition:transform .12s,color .12s}
-  .dlbtn:hover{color:#7ff0ff;transform:scale(1.12)}
+  /* 등록한 HTML 다운로드 — 즐겨찾기 별과 같은 자리 체계를 쓰다가 V17 패치에서 좌우로 나뉜다.
+     좋아요 버튼(.v10like)처럼 옅은 배경을 깔아 아이콘만 덩그러니 있지 않게 한다. */
+  .dlbtn{position:absolute;top:7px;right:8px;z-index:3;width:23px;height:23px;display:grid;place-items:center;
+    border-radius:50%;background:rgba(0,0,0,.35);border:1px solid rgba(255,255,255,.25);cursor:pointer;
+    font-size:12px;line-height:1;color:#fff;padding:0;transition:transform .12s,background .12s,border-color .12s}
+  .dlbtn:hover{background:rgba(77,216,232,.30);border-color:rgba(77,216,232,.6);transform:scale(1.08)}
   /* 장애표시 유예 (관리자 전용) */
   .waivebtn{position:absolute;bottom:7px;right:8px;z-index:3;background:rgba(0,0,0,.35);border:1px solid rgba(255,255,255,.25);border-radius:6px;cursor:pointer;font-size:10px;font-weight:800;line-height:1;color:#fff;padding:3px 7px}
   .waivebtn:hover{border-color:#fff}
