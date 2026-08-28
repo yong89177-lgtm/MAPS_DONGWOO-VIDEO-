@@ -17,6 +17,16 @@ function sandboxHeaders(res) {
   res.setHeader('Content-Security-Policy', 'sandbox allow-scripts allow-forms allow-modals allow-popups');
 }
 
+// 파일명에 개행이 섞여 헤더가 깨지는 걸 막고, 비-ASCII 폴백/UTF-8 파일명을 함께 내려준다.
+function setDownloadHeader(res, filename) {
+  const safe = String(filename || 'download.html').replace(/[\r\n]/g, ' ');
+  const asciiFallback = safe.replace(/[^\x20-\x7e]/g, '_').replace(/"/g, "'");
+  res.setHeader(
+    'Content-Disposition',
+    `attachment; filename="${asciiFallback}"; filename*=UTF-8''${encodeURIComponent(safe)}`
+  );
+}
+
 const norm = (s) => (s || '').replace(/\s+/g, '');
 
 function resolveColumn(columns, features) {
@@ -349,12 +359,16 @@ router.get('/admin-notifications', requireAdmin, (req, res) => {
 // ---- HTML 실행/다운로드 ----
 
 // 공개: 2차(최종) 승인된 요청의 HTML만 실행 가능. 카테고리별 카드 클릭 시 이 주소가 열린다.
+// ?download=1 을 붙이면 브라우저에서 바로 열지 않고 등록 시 첨부한 원본 파일명으로 다운로드된다.
 router.get('/dash-file', (req, res) => {
   const item = dashRequests.read().find((q) => q.id === req.query.id);
   if (!item || item.status !== 'approved' || !item.file) {
     return res.status(404).send('<h1>404</h1><p>승인된 AI Agent를 찾을 수 없습니다.</p>');
   }
   sandboxHeaders(res);
+  if (req.query.download) {
+    setDownloadHeader(res, item.fname || `${item.name}.html`);
+  }
   res.sendFile(path.join(UPLOAD_DIR, `${item.id}.html`));
 });
 
