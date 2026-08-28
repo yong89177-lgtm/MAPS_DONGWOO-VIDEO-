@@ -4399,7 +4399,7 @@ if(navigator.sendBeacon){try{navigator.sendBeacon("api/site-visit");}catch(e){}}
   /* reduce 라고 멈추지 않는다 — 회사 PC·VDI 는 이 설정이 기본이라 로고가 통째로 죽는다.
      대신 주기를 늘려 은은하게 재생한다. */
   if(reduce){CYCLE=5000;STAGGER=320;}
-  var raf=null,base=null,onScreen=true,TIME_SCALE=0.1;
+  var raf=null,base=null,onScreen=true,TIME_SCALE=0.02;
   function frame(now){if(base===null)base=now;render((now-base)*TIME_SCALE);raf=requestAnimationFrame(frame);}
   function play(){if(raf===null&&onScreen&&!document.hidden){raf=requestAnimationFrame(frame);}}
   function stop(){if(raf!==null){cancelAnimationFrame(raf);raf=null;}}
@@ -4437,7 +4437,7 @@ if(navigator.sendBeacon){try{navigator.sendBeacon("api/site-visit");}catch(e){}}
     var hero = document.getElementById("secHome");
     if(!v || !hero) return;
 
-    var START = 3.0, END = 8.0, SPEED = 0.125;
+    var START = 3.0, END = 8.0, SPEED = 0.05;
     var visible = true, dead = false;
 
     function seekStart(){
