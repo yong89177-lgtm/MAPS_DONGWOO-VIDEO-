@@ -361,15 +361,27 @@ router.get('/admin-notifications', requireAdmin, (req, res) => {
 // 공개: 2차(최종) 승인된 요청의 HTML만 실행 가능. 카테고리별 카드 클릭 시 이 주소가 열린다.
 // ?download=1 을 붙이면 브라우저에서 바로 열지 않고 등록 시 첨부한 원본 파일명으로 다운로드된다.
 router.get('/dash-file', (req, res) => {
-  const item = dashRequests.read().find((q) => q.id === req.query.id);
+  const list = dashRequests.read();
+  const item = list.find((q) => q.id === req.query.id);
   if (!item || item.status !== 'approved' || !item.file) {
     return res.status(404).send('<h1>404</h1><p>승인된 AI Agent를 찾을 수 없습니다.</p>');
   }
   sandboxHeaders(res);
   if (req.query.download) {
     setDownloadHeader(res, item.fname || `${item.name}.html`);
+    item.downloads = (item.downloads || 0) + 1;
+    dashRequests.write(list).catch(() => {});
   }
   res.sendFile(path.join(UPLOAD_DIR, `${item.id}.html`));
+});
+
+// 공개: 카드에 다운로드 버튼 툴팁으로 보여줄 항목별 누적 다운로드 횟수
+router.get('/dash-download-counts', (req, res) => {
+  const counts = {};
+  dashRequests.read().forEach((q) => {
+    if (q.status === 'approved' && q.file) counts[q.id] = q.downloads || 0;
+  });
+  res.json({ ok: true, counts });
 });
 
 // 관리자: 승인 상태와 무관하게 첨부 HTML을 검토/다운로드

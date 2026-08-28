@@ -1888,6 +1888,21 @@
 
 
   /* ==========================================================================
+     PTIC AI Platform V19 — 화이트 테마 시인성 (즐겨찾기 별 · 다운로드 버튼)
+     다크 테마를 전제로 고른 색이라 밝은 카드 배경 위에서는 잘 안 보였다.
+     ========================================================================== */
+
+  /* 즐겨찾기 별(선택됨)은 --star 변수를 쓰므로, 화이트 테마 스코프에서 값만 진하게 바꾸면
+     .favstar.on{color:var(--star)} 에 자동으로 반영된다. */
+  body.theme-white{--star:#b45309}
+
+  /* 다운로드 버튼은 다크 배경 전제의 하드코딩된 색이라 직접 덮어써야 한다 */
+  body.theme-white .dlbtn{background:rgba(8,145,178,.14);border-color:rgba(8,145,178,.55);
+    color:#0e7490;box-shadow:none}
+  body.theme-white .dlbtn:hover{background:rgba(8,145,178,.28);border-color:rgba(8,145,178,.85)}
+
+
+  /* ==========================================================================
      MAPS V3 — 하단 검색/채팅 바 · 맨 위로 · 설정 패널 · 챗봇 추천 이유
      기존 규칙은 건드리지 않고 전부 뒤에 얹는다.
      ========================================================================== */
@@ -2731,10 +2746,17 @@ async function loadData(){
   renderGrid();
   if(typeof refreshPopularHub==="function")refreshPopularHub();
   if(typeof loadRank==="function")loadRank();
+  if(typeof loadDownloadCounts==="function")loadDownloadCounts();
 }
 let RANK7={};
 async function loadRank(){
   try{const r=await fetch("api/dash-rank",{cache:"no-store"});if(r.ok){const j=await r.json();if(j.ok&&j.items)RANK7=j.items;}}catch(e){}
+  renderGrid();
+}
+/* 다운로드 버튼에 마우스를 올렸을 때 보여줄 항목별 누적 다운로드 횟수 */
+let DL_COUNTS={};
+async function loadDownloadCounts(){
+  try{const r=await fetch("api/dash-download-counts",{cache:"no-store"});if(r.ok){const j=await r.json();if(j.ok&&j.counts)DL_COUNTS=j.counts;}}catch(e){}
   renderGrid();
 }
 const ORG_ORDER=["新 공정/공법 개발","해외법인 양산 지원","제품 개발 대응","공통 및 루틴 업무"];
@@ -4893,24 +4915,32 @@ if(navigator.sendBeacon){try{navigator.sendBeacon("api/site-visit");}catch(e){}}
     star.addEventListener("click", function(e){ e.preventDefault(); e.stopPropagation(); window.toggleFav(col.team, it.name); });
     el.appendChild(star);
 
-    /* addr 이 /api/dash-file?id=... 형태일 때만(=등록 시 실제 HTML 파일이 첨부된 경우) 다운로드 버튼을 단다 */
     /* addr 저장 형식이 두 가지 섞여 있다 — 최신 카드는 상대경로("/api/dash-file?id=..")로,
        예전에 승인된 카드는 호스트가 박힌 절대경로("http://호스트/api/dash-file?id=..")로 저장돼
        있을 수 있다(둘 다 normAddr()이 문제없이 열어준다). 앞이 "/"로 시작하는지는 안 보고,
-       문자열 어디에 이 경로가 있는지만 확인해 두 형식을 모두 잡아낸다. */
-    var fileMatch = /\/api\/dash-file\?id=/.test(String(it.addr || "").trim());
-    if(fileMatch){
+       문자열 어디에 이 경로가 있는지만 확인해 두 형식을 모두 잡아낸다. id 는 다운로드 횟수
+       조회에 쓰기 위해 캡처해둔다. */
+    var fileM = /\/api\/dash-file\?id=([^&]+)/.exec(String(it.addr || "").trim());
+    if(fileM){
+      var fileId = fileM[1];
       var dl = document.createElement("button");
       dl.type = "button";
       dl.className = "dlbtn";
       dl.innerHTML = "⬇";
-      dl.title = "등록한 HTML 다운로드";
+      var dlCount = (typeof DL_COUNTS !== "undefined" && DL_COUNTS && DL_COUNTS[fileId]) || 0;
+      dl.title = "등록한 HTML 다운로드 · " + dlCount + "회 다운로드됨";
       dl.addEventListener("click", function(e){
         e.preventDefault(); e.stopPropagation();
         var url = normAddr(it.addr) + "&download=1";
         var link = document.createElement("a");
         link.href = url; link.download = "";
         document.body.appendChild(link); link.click(); link.remove();
+        try{
+          if(typeof DL_COUNTS !== "undefined"){
+            DL_COUNTS[fileId] = ((DL_COUNTS[fileId] || 0) + 1);
+            dl.title = "등록한 HTML 다운로드 · " + DL_COUNTS[fileId] + "회 다운로드됨";
+          }
+        }catch(err){}
       });
       el.appendChild(dl);
     }
