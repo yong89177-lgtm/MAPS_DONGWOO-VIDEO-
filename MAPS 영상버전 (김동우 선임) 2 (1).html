@@ -1903,6 +1903,30 @@
 
 
   /* ==========================================================================
+     PTIC AI Platform V20 — 다운로드 버튼 커스텀 툴팁
+     기본 title 속성 툴팁(브라우저 OS 스타일, 흰 배경)이 카드 디자인과 안 어울려서
+     사이트 다크 글래스 UI(.dockbar 등)와 같은 톤의 말풍선으로 교체한다.
+     .cell/.t5 가 overflow:hidden 이라 버튼 위로 띄우면 카드 상단에서 잘리므로 아래로 띄운다. */
+  .dlbtn::after{
+    content:attr(data-tip);position:absolute;top:calc(100% + 9px);right:0;
+    white-space:nowrap;font-size:11.5px;font-weight:700;color:var(--txt);
+    padding:6px 10px;border-radius:8px;border:1px solid var(--panel-line);
+    background:linear-gradient(180deg,rgba(255,255,255,.08),rgba(255,255,255,.02)),rgba(9,13,24,.94);
+    box-shadow:0 10px 24px rgba(0,0,0,.4);
+    backdrop-filter:blur(var(--blur));-webkit-backdrop-filter:blur(var(--blur));
+    opacity:0;visibility:hidden;transform:translateY(-4px);pointer-events:none;z-index:20;
+    transition:opacity .15s,transform .15s,visibility .15s}
+  .dlbtn::before{
+    content:"";position:absolute;top:calc(100% + 4px);right:8px;
+    border:5px solid transparent;border-bottom-color:rgba(9,13,24,.94);
+    opacity:0;visibility:hidden;pointer-events:none;z-index:20;transition:opacity .15s,visibility .15s}
+  .dlbtn:hover::after,.dlbtn:focus-visible::after,
+  .dlbtn:hover::before,.dlbtn:focus-visible::before{opacity:1;visibility:visible;transform:none}
+  /* 화이트 테마에서도 같은 다크 말풍선을 그대로 써 카드 배경과 상관없이 대비를 유지한다 */
+  body.theme-white .dlbtn::after{color:#f2f4f7}
+
+
+  /* ==========================================================================
      MAPS V3 — 하단 검색/채팅 바 · 맨 위로 · 설정 패널 · 챗봇 추천 이유
      기존 규칙은 건드리지 않고 전부 뒤에 얹는다.
      ========================================================================== */
@@ -4928,7 +4952,11 @@ if(navigator.sendBeacon){try{navigator.sendBeacon("api/site-visit");}catch(e){}}
       dl.className = "dlbtn";
       dl.innerHTML = "⬇";
       var dlCount = (typeof DL_COUNTS !== "undefined" && DL_COUNTS && DL_COUNTS[fileId]) || 0;
-      dl.title = "등록한 HTML 다운로드 · " + dlCount + "회 다운로드됨";
+      /* 기본 title 툴팁 대신 커스텀 말풍선(.dlbtn::after, data-tip 사용)을 쓴다.
+         title 을 남겨두면 커스텀 툴팁과 브라우저 OS 툴팁이 같이 뜨므로 title 은 없앤다.
+         스크린리더용 설명은 aria-label 로 대체한다. */
+      dl.setAttribute("data-tip", "다운로드 " + dlCount + "회");
+      dl.setAttribute("aria-label", "등록한 HTML 다운로드 (" + dlCount + "회 다운로드됨)");
       dl.addEventListener("click", function(e){
         e.preventDefault(); e.stopPropagation();
         var url = normAddr(it.addr) + "&download=1";
@@ -4938,7 +4966,8 @@ if(navigator.sendBeacon){try{navigator.sendBeacon("api/site-visit");}catch(e){}}
         try{
           if(typeof DL_COUNTS !== "undefined"){
             DL_COUNTS[fileId] = ((DL_COUNTS[fileId] || 0) + 1);
-            dl.title = "등록한 HTML 다운로드 · " + DL_COUNTS[fileId] + "회 다운로드됨";
+            dl.setAttribute("data-tip", "다운로드 " + DL_COUNTS[fileId] + "회");
+            dl.setAttribute("aria-label", "등록한 HTML 다운로드 (" + DL_COUNTS[fileId] + "회 다운로드됨)");
           }
         }catch(err){}
       });
