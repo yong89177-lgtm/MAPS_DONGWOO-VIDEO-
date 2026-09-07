@@ -22,6 +22,8 @@ app.use((err, req, res, next) => {
   res.status(err.status || 500).json({ message: err.message || '서버 오류가 발생했습니다.' });
 });
 
-app.listen(PORT, () => {
-  console.log(`AI Agent Registry server listening on port ${PORT}`);
+const HOST = process.env.HOST || '0.0.0.0';
+
+app.listen(PORT, HOST, () => {
+  console.log(`AI Agent Registry server listening on http://${HOST}:${PORT}`);
 });
