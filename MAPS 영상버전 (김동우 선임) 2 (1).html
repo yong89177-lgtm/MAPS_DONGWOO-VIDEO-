@@ -1972,7 +1972,7 @@
 
       <div class="hero">
         <div class="eyebrow reveal">생산기술혁신센터 업무 효율화  Tool 플랫폼</div>
-        <h2 class="hero-title reveal" data-d="1">생산기술의 미래를 이끄는 <span class="grad">업무 효율화 Tool 플랫폼</span></h2>
+        <h2 class="hero-title reveal" data-d="1">생산기술의 미래를 이끄는 <span class="grad">통합 업무 효율화  Tool 플랫폼</span></h2>
         <div class="brand-tagline hero-tagline reveal" data-d="2"><span class="aria-ltr">M</span>anufacturing <span class="aria-ltr">A</span>utomation Tool <span class="aria-ltr">P</span>latform &amp; <span class="aria-ltr">S</span>hared-dashboard</div>
         <p class="sub reveal" data-d="2">생산 효율화와 기술 혁신, 센터가 지향하는 목표에 맞춘 업무 효율화 Tool을 한 곳에서.</p>
         <div class="hero-cta reveal" data-d="3">
@@ -1992,7 +1992,7 @@
       <div class="sec-head">
         <div class="sec-eyebrow reveal">대시보드</div>
         <h2 class="sec-title reveal" data-d="1">생산기술혁신센터 <span class="grad">Automation Tool</span> 현황</h2>
-        <p class="sec-desc reveal" data-d="2">전체 Automation Tool과 참여 팀, 카테고리별 분포, 그리고 공지사항을 한 화면에서 확인합니다.</p>
+        <p class="sec-desc reveal" data-d="2">전체 Agent와 참여 팀, 카테고리별 분포, 그리고 공지사항을 한 화면에서 확인합니다.</p>
       </div>
       <div class="home-actions reveal" data-d="3">
         <button type="button" id="agentRegBtn">＋ Automation Tool 등록</button>
@@ -2000,10 +2000,10 @@
 
       <div class="home-cols reveal" data-d="3">
 
-        <!-- 패널 1 · 현황 (전체 Automation Tool / 참여 팀 / 카테고리 / 내 즐겨찾기) -->
+        <!-- 패널 1 · 현황 (전체 Agent / 참여 팀 / 카테고리 / 내 즐겨찾기) -->
         <div class="dash-panel p-stats">
           <div class="stat-row">
-            <div class="stat-card"><div class="stat-ico">🤖</div><div class="stat-num" data-stat="agents">0</div><div class="stat-label">전체 Automation Tool</div></div>
+            <div class="stat-card"><div class="stat-ico">🤖</div><div class="stat-num" data-stat="agents">0</div><div class="stat-label">전체 Agent</div></div>
             <div class="stat-card"><div class="stat-ico">👥</div><div class="stat-num" data-stat="teams">0</div><div class="stat-label">참여 팀</div></div>
             <div class="stat-card"><div class="stat-ico">🗂️</div><div class="stat-num" data-stat="cats">0</div><div class="stat-label">카테고리</div></div>
             <div class="stat-card"><div class="stat-ico">⭐</div><div class="stat-num" data-stat="favs">0</div><div class="stat-label">내 즐겨찾기</div></div>
@@ -2179,7 +2179,7 @@
   <div class="foot-inner">
     <div class="foot-brand">
       <div class="foot-logo brandmark">MAPS</div>
-      <div class="foot-tag"><span class="aria-ltr">M</span>anufacturing <span class="aria-ltr">A</span>utomation Tool <span class="aria-ltr">P</span>latform &amp; <span class="aria-ltr">S</span>hared-dashboard<br>생산기술혁신센터 업무 카테고리별 Automation Tool을 한 곳에서.</div>
+      <div class="foot-tag"><span class="aria-ltr">M</span>anufacturing <span class="aria-ltr">A</span>utomation Tool <span class="aria-ltr">P</span>latform &amp; <span class="aria-ltr">S</span>hared-dashboard<br>생산기술혁신센터 업무 카테고리별 Automation Tool를 한 곳에서.</div>
     </div>
     <div class="foot-col">
       <h4>Platform</h4>
@@ -2562,31 +2562,31 @@ function normAddr(a){a=(a||"").trim();if(!a)return"";return /^https?:\/\//i.test
              서버가 붙으면 api/dash-like 값으로 대체한다. */
 const FALLBACK={columns:[
  {team:"新 공정/공법 개발",tag:"New Process & Method Development",items:[
-  {name:"공정 조건 최적화 Automation Tool",desc:"실험 데이터 기반 최적 조건 탐색",owner:"",addr:"",order:1,org:"전극기술그룹",likes:34},
-  {name:"신공법 사례 조사 Automation Tool",desc:"특허·논문에서 유사 공법 자동 수집",owner:"",addr:"",order:2,org:"전극기술그룹",likes:21},
-  {name:"설비 사양 검토 Automation Tool",desc:"신규 설비 요구사양 초안 작성",owner:"",addr:"",order:3,org:"파우치/각형기술그룹",likes:18},
+  {name:"공정 조건 최적화 Agent",desc:"실험 데이터 기반 최적 조건 탐색",owner:"",addr:"",order:1,org:"전극기술그룹",likes:34},
+  {name:"신공법 사례 조사 Agent",desc:"특허·논문에서 유사 공법 자동 수집",owner:"",addr:"",order:2,org:"전극기술그룹",likes:21},
+  {name:"설비 사양 검토 Agent",desc:"신규 설비 요구사양 초안 작성",owner:"",addr:"",order:3,org:"파우치/각형기술그룹",likes:18},
   {name:"공법 변경 영향 예측",desc:"변경 시 품질·수율 파급 범위 추정",owner:"",addr:"",order:4,org:"원통형기술그룹",likes:27},
-  {name:"파일럿 결과 요약 Automation Tool",desc:"시험 로트 결과 자동 정리·비교",owner:"",addr:"",order:5,org:"파우치/각형기술그룹",likes:15},
+  {name:"파일럿 결과 요약 Agent",desc:"시험 로트 결과 자동 정리·비교",owner:"",addr:"",order:5,org:"파우치/각형기술그룹",likes:15},
   {name:"공정 표준서 초안 생성",desc:"검증 완료 조건을 표준 문서로 변환",owner:"",addr:"",order:6,org:"전극기술그룹",likes:9}]},
  {team:"해외법인 양산 지원",tag:"Overseas Plant Production Support",items:[
   {name:"해외법인 수율 모니터링",desc:"법인별 수율 추이·이상 구간 알림",owner:"",addr:"",order:1,org:"Pack기술그룹",likes:41},
-  {name:"현지 이슈 원인분석 Automation Tool",desc:"불량 발생 구간 역추적 · 원인 후보 제시",owner:"",addr:"",order:2,org:"원통형기술그룹",likes:38},
+  {name:"현지 이슈 원인분석 Agent",desc:"불량 발생 구간 역추적 · 원인 후보 제시",owner:"",addr:"",order:2,org:"원통형기술그룹",likes:38},
   {name:"설비 알람 대응 가이드",desc:"알람 이력 기반 조치 절차 자동 안내",owner:"",addr:"",order:3,org:"파우치/각형기술그룹",likes:24},
   {name:"양산 조건 이관 점검",desc:"국내 조건과 현지 조건 차이 자동 대조",owner:"",addr:"",order:4,org:"전극기술그룹",likes:17},
-  {name:"현지 교육자료 생성 Automation Tool",desc:"공정 문서를 현지어 교육안으로 변환",owner:"",addr:"",order:5,org:"인프라그룹",likes:12},
+  {name:"현지 교육자료 생성 Agent",desc:"공정 문서를 현지어 교육안으로 변환",owner:"",addr:"",order:5,org:"인프라그룹",likes:12},
   {name:"법인 간 실적 비교",desc:"동일 공정 지표를 법인별로 정렬 비교",owner:"",addr:"",order:6,org:"Pack기술그룹",likes:8}]},
  {team:"제품 개발 대응",tag:"Product Development Response",items:[
-  {name:"개발 요구사양 정리 Automation Tool",desc:"고객 요구를 검증 항목으로 분해",owner:"",addr:"",order:1,org:"Pack기술그룹",likes:33},
+  {name:"개발 요구사양 정리 Agent",desc:"고객 요구를 검증 항목으로 분해",owner:"",addr:"",order:1,org:"Pack기술그룹",likes:33},
   {name:"설계 변경 영향 분석",desc:"변경 파급 범위와 재검증 항목 자동 추적",owner:"",addr:"",order:2,org:"원통형기술그룹",likes:29},
   {name:"개발 일정 리스크 경보",desc:"마일스톤 지연 위험 사전 탐지",owner:"",addr:"",order:3,org:"Pack기술그룹",likes:22},
   {name:"시험 결과 판정 지원",desc:"규격 대비 합부 자동 판정 · 근거 제시",owner:"",addr:"",order:4,org:"파우치/각형기술그룹",likes:19},
   {name:"과거 개발 이력 검색",desc:"유사 과제의 판단 근거를 찾아 제시",owner:"",addr:"",order:5,org:"인프라그룹",likes:14}]},
  {team:"공통 및 루틴 업무",tag:"Common & Routine Operations",items:[
-  {name:"회의록 자동 정리 Automation Tool",desc:"녹취·메모를 결정사항과 액션으로 분리",owner:"",addr:"",order:1,org:"인프라그룹",likes:45},
-  {name:"보고서 초안 생성 Automation Tool",desc:"데이터에서 주간·월간 보고 초안 작성",owner:"",addr:"",order:2,org:"인프라그룹",likes:36},
+  {name:"회의록 자동 정리 Agent",desc:"녹취·메모를 결정사항과 액션으로 분리",owner:"",addr:"",order:1,org:"인프라그룹",likes:45},
+  {name:"보고서 초안 생성 Agent",desc:"데이터에서 주간·월간 보고 초안 작성",owner:"",addr:"",order:2,org:"인프라그룹",likes:36},
   {name:"사내 문서 통합 검색",desc:"흩어진 규정·표준·보고서를 한 번에 검색",owner:"",addr:"",order:3,org:"인프라그룹",likes:31},
   {name:"데이터 취합 자동화",desc:"반복 집계 작업을 정해진 양식으로 출력",owner:"",addr:"",order:4,org:"Pack기술그룹",likes:26},
-  {name:"번역·요약 지원 Automation Tool",desc:"기술 문서 번역과 핵심 요약",owner:"",addr:"",order:5,org:"인프라그룹",likes:20}]}
+  {name:"번역·요약 지원 Agent",desc:"기술 문서 번역과 핵심 요약",owner:"",addr:"",order:5,org:"인프라그룹",likes:20}]}
 ]};
 
 let STATE={columns:[]}, DRAFT=null, ME={auth:false}, FAVORITES=[];
@@ -4341,7 +4341,7 @@ loadSystems();
 if(navigator.sendBeacon){try{navigator.sendBeacon("api/site-visit");}catch(e){}}
 </script>
 <script>
-/* ===== MAPS 로고 — 오케스트레이션 노드 (허브가 여러 Automation Tool을 조율) =====
+/* ===== MAPS 로고 — 오케스트레이션 노드 (허브가 여러 Agent를 조율) =====
    기존 19초 크레인·AMR·컨베이어 인트로를 전부 대체한다. 무한 루프. */
 (function(){
   var stage=document.getElementById("introStage");
@@ -4523,7 +4523,7 @@ if(navigator.sendBeacon){try{navigator.sendBeacon("api/site-visit");}catch(e){}}
 
   /* ---------------------------------------------------------------
      3) STATS 카운트업 — V10 에서 4개 지표를 재정의
-        전체 Automation Tool · 참여 팀 · 카테고리 · 내 즐겨찾기
+        전체 Agent · 참여 팀 · 카테고리 · 내 즐겨찾기
      --------------------------------------------------------------- */
   var statsDone = false;
   function updateStats(){
@@ -4868,7 +4868,7 @@ if(navigator.sendBeacon){try{navigator.sendBeacon("api/site-visit");}catch(e){}}
     {id:0, title:"8월 사내 AI 활용 교육 일정 안내", ts:"2026-07-30", category:"교육"},
     {id:0, title:"조직별 담당 Automation Tool 배정 현황 공유", ts:"2026-07-28", category:"공지"},
     {id:0, title:"TOP5 좋아요 집계 기준 안내", ts:"2026-07-24", category:"안내"},
-    {id:0, title:"해외법인 양산 지원 Automation Tool 시범 운영 결과", ts:"2026-07-21", category:"공지"},
+    {id:0, title:"해외법인 양산 지원 Agent 시범 운영 결과", ts:"2026-07-21", category:"공지"},
     {id:0, title:"정기 점검에 따른 일시 접속 지연 안내", ts:"2026-07-17", category:"안내"},
     {id:0, title:"신규 Automation Tool 아이디어 제안 상시 접수", ts:"2026-07-15", category:"안내"}
   ];
@@ -5121,7 +5121,7 @@ if(navigator.sendBeacon){try{navigator.sendBeacon("api/site-visit");}catch(e){}}
   function wizStep2(){
     WIZ.step = 2;
     chatPH("위에서 업무 카테고리를 골라 주세요");
-    botChips('<span class="chat-lead">2/3 · 업무 카테고리</span><br>어떤 업무에 쓸 Automation Tool을 찾으세요?',
+    botChips('<span class="chat-lead">2/3 · 업무 카테고리</span><br>어떤 업무에 쓸 Agent 를 찾으세요?',
       catList().concat(["잘 모르겠음"]), function(v){
         WIZ.cat = (v === "잘 모르겠음") ? "" : v;
         chatAdd(esc(v), "user");
@@ -5202,7 +5202,7 @@ if(navigator.sendBeacon){try{navigator.sendBeacon("api/site-visit");}catch(e){}}
     botChips('<span class="chat-lead">무엇을 찾으세요?</span>',
       ["전체 목록","수율 모니터링","원인분석","회의록 정리","보고서 초안","설비 알람","설계 변경","번역·요약"],
       function(v){ chatReply(v === "전체 목록" ? "목록" : v); });
-    botChips('<span class="chat-lead">🧭 AI 매니저 추천</span><br>소속 · 업무 카테고리 · 해결하고 싶은 문제를 3단계로 고르면 맞는 Automation Tool을 찾아 드려요.',
+    botChips('<span class="chat-lead">🧭 AI 매니저 추천</span><br>소속 · 업무 카테고리 · 해결하고 싶은 문제를 3단계로 고르면 맞는 Agent 를 찾아 드려요.',
       ["추천 시작"], function(){ chatAdd("AI 매니저 추천", "user"); wizStart(); });
   };
 
@@ -5411,8 +5411,8 @@ if(navigator.sendBeacon){try{navigator.sendBeacon("api/site-visit");}catch(e){}}
 (function demoData(){
   "use strict";
   var DEMO_SHARE  = [{"id": "s1", "name": "공정 이상 원인분석 리포트 템플릿", "desc": "불량 발생 구간별 원인 후보를 자동 정리하는 리포트 양식", "who": "김도현", "org": "이슈 원인분석", "fname": "rca_report_v2.html", "size": 184320}, {"id": "s2", "name": "설비 알람 이력 대시보드", "desc": "최근 90일 알람을 설비·유형별로 집계", "who": "박서연", "org": "MRM 과제 운영", "url": "http://10.31.24.11:8080/alarm"}, {"id": "s3", "name": "수율 드리프트 추적 노트북", "desc": "로트별 수율 변화를 시계열로 분해", "who": "이준호", "org": "이슈 원인분석", "fname": "yield_drift.ipynb", "size": 96256}, {"id": "s4", "name": "기술 트렌드 스캐닝 결과 (7월)", "desc": "전고체·건식전극 관련 특허 및 논문 요약", "who": "익명", "org": "기술개발 도출 지원", "fname": "trend_2607.pptx", "size": 3241984}, {"id": "s5", "name": "개발 게이트 산출물 체크리스트", "desc": "게이트별 필수 산출물 충족도 자동 점검 시트", "who": "정민아", "org": "제품 개발 프로세스 개선", "fname": "gate_checklist.xlsx", "size": 51200}, {"id": "s6", "name": "과제 리스크 조기경보 기준", "desc": "일정·비용·품질 리스크 판정 임계값 정리", "who": "최우식", "org": "MRM 과제 운영", "url": "http://10.31.24.37:9000/risk"}, {"id": "s7", "name": "선행기술 조사 자동화 스크립트", "desc": "키워드 입력 시 경쟁사 공개특허를 대조", "who": "한지우", "org": "기술개발 도출 지원", "fname": "prior_art.py", "size": 18432}];
-  var DEMO_LOUNGE = [{"id": "l1", "name": "김도현", "org": "이슈 원인분석", "anon": false, "tag": "활용사례", "ts": "2026-07-29 10:22", "likes": 12, "liked": false, "attachments": [], "text": "공정 이상 원인분석 Automation Tool로 지난주 불량 건 역추적해봤는데, 후보 3개 중 2번째가 실제 원인이었습니다.\n수작업으로 반나절 걸리던 걸 15분 만에 좁혔어요. 로트 번호만 넣으면 되니 한 번씩 써보시길.", "replies": [{"id": "r1", "name": "박서연", "org": "MRM 과제 운영", "anon": false, "ts": "2026-07-29 11:05", "text": "오 저희 라인에도 적용 가능할까요? 설비 구성이 좀 다른데."}, {"id": "r2", "name": "김도현", "org": "이슈 원인분석", "anon": false, "ts": "2026-07-29 11:31", "text": "설비 태그만 매핑해주면 됩니다. 담당자분 연결해드릴게요."}, {"id": "r3", "name": "", "org": "", "anon": true, "ts": "2026-07-29 13:47", "text": "저도 관심 있습니다. 매핑 가이드 공유 가능하신가요?"}]}, {"id": "l2", "name": "", "org": "", "anon": true, "tag": "질문", "ts": "2026-07-28 16:40", "likes": 4, "liked": false, "attachments": [], "text": "준비중으로 표시된 Automation Tool은 언제쯤 열리나요? 오픈예정일이 안 적힌 것들이 있어서요.", "replies": [{"id": "r4", "name": "운영자", "org": "생산기술혁신센터", "anon": false, "ts": "2026-07-28 17:12", "text": "일정 확정된 건부터 타일에 오픈예정일을 채우고 있습니다. 8월 중 대부분 표기될 예정입니다."}]}, {"id": "l3", "name": "이준호", "org": "이슈 원인분석", "anon": false, "tag": "팁", "ts": "2026-07-27 09:15", "likes": 21, "liked": true, "attachments": [], "text": "대시보드 검색창에서 담당자 이름으로도 검색됩니다. 검색 조건을 '담당자'로 바꾸면 그 사람이 맡은 Automation Tool만 모아볼 수 있어요.\n인수인계 때 꽤 유용했습니다.", "replies": []}, {"id": "l4", "name": "정민아", "org": "제품 개발 프로세스 개선", "anon": false, "tag": "잡담", "ts": "2026-07-25 18:02", "likes": 7, "liked": false, "attachments": [], "text": "즐겨찾기(★) 눌러두면 카테고리 안에서 위로 올라옵니다. 자주 쓰는 것 3~4개만 찍어두니 훨씬 빠르네요.", "replies": []}];
-  var DEMO_BOARD  = [{"id": "b1", "title": "MAPS 포털 정식 오픈 안내", "author": "운영자", "ts": "2026-07-28 09:12", "views": 342, "comments": 5, "pinned": true, "category": "공지", "attachments": true, "likes": 18, "read": true}, {"id": "b2", "title": "[필독] 대시보드 추가요청 절차 변경", "author": "운영자", "ts": "2026-07-20 11:00", "views": 288, "comments": 2, "pinned": true, "category": "공지", "attachments": false, "likes": 9, "read": true}, {"id": "b3", "title": "8월 Automation Tool 활용 사내 교육 일정", "author": "박서연", "ts": "2026-07-24 14:03", "views": 156, "comments": 8, "pinned": false, "category": "교육", "attachments": true, "likes": 11, "read": true}, {"id": "b4", "title": "온습도 이상감지 Automation Tool 알람 기준 변경 공유", "author": "김도현", "ts": "2026-07-21 17:40", "views": 97, "comments": 3, "pinned": false, "category": "공유", "attachments": false, "likes": 6, "read": true}, {"id": "b5", "title": "수율 저하 요인 분석 결과 리포트", "author": "이준호", "ts": "2026-07-18 10:25", "views": 134, "comments": 4, "pinned": false, "category": "공유", "attachments": true, "likes": 14, "read": true}, {"id": "b6", "title": "과제 진척 모니터링에 마일스톤 필터 추가 제안", "author": "최우식", "ts": "2026-07-15 13:50", "views": 62, "comments": 1, "pinned": false, "category": "제안", "attachments": false, "likes": 3, "read": true}, {"id": "b7", "title": "선행기술 조사 Automation Tool 결과가 중복되는 건 왜인가요?", "author": "익명", "ts": "2026-07-11 16:08", "views": 88, "comments": 6, "pinned": false, "category": "문의", "attachments": false, "likes": 0, "read": true}, {"id": "b8", "title": "설계 변경 영향 분석 사용 후기", "author": "정민아", "ts": "2026-07-08 09:44", "views": 71, "comments": 2, "pinned": false, "category": "자유", "attachments": false, "likes": 5, "read": true}];
+  var DEMO_LOUNGE = [{"id": "l1", "name": "김도현", "org": "이슈 원인분석", "anon": false, "tag": "활용사례", "ts": "2026-07-29 10:22", "likes": 12, "liked": false, "attachments": [], "text": "공정 이상 원인분석 Agent로 지난주 불량 건 역추적해봤는데, 후보 3개 중 2번째가 실제 원인이었습니다.\n수작업으로 반나절 걸리던 걸 15분 만에 좁혔어요. 로트 번호만 넣으면 되니 한 번씩 써보시길.", "replies": [{"id": "r1", "name": "박서연", "org": "MRM 과제 운영", "anon": false, "ts": "2026-07-29 11:05", "text": "오 저희 라인에도 적용 가능할까요? 설비 구성이 좀 다른데."}, {"id": "r2", "name": "김도현", "org": "이슈 원인분석", "anon": false, "ts": "2026-07-29 11:31", "text": "설비 태그만 매핑해주면 됩니다. 담당자분 연결해드릴게요."}, {"id": "r3", "name": "", "org": "", "anon": true, "ts": "2026-07-29 13:47", "text": "저도 관심 있습니다. 매핑 가이드 공유 가능하신가요?"}]}, {"id": "l2", "name": "", "org": "", "anon": true, "tag": "질문", "ts": "2026-07-28 16:40", "likes": 4, "liked": false, "attachments": [], "text": "준비중으로 표시된 Agent는 언제쯤 열리나요? 오픈예정일이 안 적힌 것들이 있어서요.", "replies": [{"id": "r4", "name": "운영자", "org": "생산기술혁신센터", "anon": false, "ts": "2026-07-28 17:12", "text": "일정 확정된 건부터 타일에 오픈예정일을 채우고 있습니다. 8월 중 대부분 표기될 예정입니다."}]}, {"id": "l3", "name": "이준호", "org": "이슈 원인분석", "anon": false, "tag": "팁", "ts": "2026-07-27 09:15", "likes": 21, "liked": true, "attachments": [], "text": "대시보드 검색창에서 담당자 이름으로도 검색됩니다. 검색 조건을 '담당자'로 바꾸면 그 사람이 맡은 Agent만 모아볼 수 있어요.\n인수인계 때 꽤 유용했습니다.", "replies": []}, {"id": "l4", "name": "정민아", "org": "제품 개발 프로세스 개선", "anon": false, "tag": "잡담", "ts": "2026-07-25 18:02", "likes": 7, "liked": false, "attachments": [], "text": "즐겨찾기(★) 눌러두면 카테고리 안에서 위로 올라옵니다. 자주 쓰는 것 3~4개만 찍어두니 훨씬 빠르네요.", "replies": []}];
+  var DEMO_BOARD  = [{"id": "b1", "title": "MAPS 포털 정식 오픈 안내", "author": "운영자", "ts": "2026-07-28 09:12", "views": 342, "comments": 5, "pinned": true, "category": "공지", "attachments": true, "likes": 18, "read": true}, {"id": "b2", "title": "[필독] 대시보드 추가요청 절차 변경", "author": "운영자", "ts": "2026-07-20 11:00", "views": 288, "comments": 2, "pinned": true, "category": "공지", "attachments": false, "likes": 9, "read": true}, {"id": "b3", "title": "8월 Automation Tool 활용 사내 교육 일정", "author": "박서연", "ts": "2026-07-24 14:03", "views": 156, "comments": 8, "pinned": false, "category": "교육", "attachments": true, "likes": 11, "read": true}, {"id": "b4", "title": "온습도 이상감지 Agent 알람 기준 변경 공유", "author": "김도현", "ts": "2026-07-21 17:40", "views": 97, "comments": 3, "pinned": false, "category": "공유", "attachments": false, "likes": 6, "read": true}, {"id": "b5", "title": "수율 저하 요인 분석 결과 리포트", "author": "이준호", "ts": "2026-07-18 10:25", "views": 134, "comments": 4, "pinned": false, "category": "공유", "attachments": true, "likes": 14, "read": true}, {"id": "b6", "title": "과제 진척 모니터링에 마일스톤 필터 추가 제안", "author": "최우식", "ts": "2026-07-15 13:50", "views": 62, "comments": 1, "pinned": false, "category": "제안", "attachments": false, "likes": 3, "read": true}, {"id": "b7", "title": "선행기술 조사 Agent 결과가 중복되는 건 왜인가요?", "author": "익명", "ts": "2026-07-11 16:08", "views": 88, "comments": 6, "pinned": false, "category": "문의", "attachments": false, "likes": 0, "read": true}, {"id": "b8", "title": "설계 변경 영향 분석 사용 후기", "author": "정민아", "ts": "2026-07-08 09:44", "views": 71, "comments": 2, "pinned": false, "category": "자유", "attachments": false, "likes": 5, "read": true}];
 
   /* 공지는 건드리지 않는다 — script #3 의 NOTICE_SAMPLE 이 이미 8건을 갖고 있고
      `더보기 +` 토글까지 그 총계를 기준으로 돈다. 여기서 덮으면 오히려 줄어든다. */
