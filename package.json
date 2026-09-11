@@ -2,7 +2,7 @@
   "name": "ai-agent-registry",
   "version": "1.0.0",
   "private": true,
-  "description": "Automation Tool 등록 / 2단계 관리자 승인 / 카테고리별 전시 웹 서비스",
+  "description": "AI Agent 등록 / 2단계 관리자 승인 / 카테고리별 전시 웹 서비스",
   "main": "server/index.js",
   "scripts": {
     "start": "node server/index.js",
