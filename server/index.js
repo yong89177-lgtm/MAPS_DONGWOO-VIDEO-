@@ -8,7 +8,11 @@ const app = express();
 const PORT = process.env.PORT || 3000;
 
 app.use(express.json());
-app.use(express.static(path.join(__dirname, '..', 'public')));
+app.use(express.static(path.join(__dirname, '..', 'public'), { index: false }));
+
+app.get('/', (req, res) => {
+  res.sendFile(path.join(__dirname, '..', 'MAPS 영상버전 (김동우 선임) 2 (1).html'));
+});
 
 app.use('/api', agentsRouter);
 
@@ -25,5 +29,5 @@ app.use((err, req, res, next) => {
 const HOST = process.env.HOST || '0.0.0.0';
 
 app.listen(PORT, HOST, () => {
-  console.log(`AI Agent Registry server listening on http://${HOST}:${PORT}`);
+  console.log(`Automation Tool Registry server listening on http://${HOST}:${PORT}`);
 });
