@@ -25,5 +25,5 @@ app.use((err, req, res, next) => {
 const HOST = process.env.HOST || '0.0.0.0';
 
 app.listen(PORT, HOST, () => {
-  console.log(`AI Agent Registry server listening on http://${HOST}:${PORT}`);
+  console.log(`Automation Tool Registry server listening on http://${HOST}:${PORT}`);
 });
