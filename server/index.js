@@ -8,11 +8,7 @@ const app = express();
 const PORT = process.env.PORT || 3000;
 
 app.use(express.json());
-app.use(express.static(path.join(__dirname, '..', 'public'), { index: false }));
-
-app.get('/', (req, res) => {
-  res.sendFile(path.join(__dirname, '..', 'MAPS 영상버전 (김동우 선임) 2 (1).html'));
-});
+app.use(express.static(path.join(__dirname, '..', 'public')));
 
 app.use('/api', agentsRouter);
 
