@@ -9,7 +9,7 @@ set "BRANCH=main"
 set "FOLDER=MAPS_DONGWOO-VIDEO-"
 
 echo ================================================
-echo  AI Agent Market - Local Run Script
+echo  Automation Tool Market - Local Run Script
 echo ================================================
 echo.
 
