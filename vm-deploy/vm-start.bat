@@ -4,7 +4,7 @@ setlocal EnableExtensions
 
 cd /d "%~dp0"
 
-set "VM_IP=10.94.25.177"
+set "VM_IP=10.34.220.251"
 set "VM_PORT=3000"
 
 echo ================================================
