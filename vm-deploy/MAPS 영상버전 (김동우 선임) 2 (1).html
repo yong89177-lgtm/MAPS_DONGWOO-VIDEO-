@@ -29,6 +29,9 @@
     --glow:0 0 26px rgba(77,216,232,.22);
     --glow-2:0 0 30px rgba(139,123,255,.20);
     --nav-h:68px;
+    --header-scroll-bg:rgba(5,7,14,.72);
+    --dock-bg:rgba(9,13,24,.86);
+    --dock-bg-strong:rgba(9,13,24,.9);
   }
   *{box-sizing:border-box;margin:0;padding:0}
   html{-webkit-text-size-adjust:100%}
@@ -146,6 +149,12 @@
   .notice-box .nb-tag{font-size:11px;font-weight:700;color:var(--accent);flex-shrink:0}
   .favstar:hover{color:#ffd54a;transform:scale(1.18)}
   .favstar.on{color:#ffd54a}
+  /* 등록한 HTML 다운로드 — 즐겨찾기 별과 같은 자리 체계를 쓰다가 V17 패치에서 좌우로 나뉜다.
+     좋아요 버튼(.v10like)처럼 옅은 배경을 깔아 아이콘만 덩그러니 있지 않게 한다. */
+  .dlbtn{position:absolute;top:7px;right:8px;z-index:3;width:23px;height:23px;display:grid;place-items:center;
+    border-radius:50%;background:rgba(0,0,0,.35);border:1px solid rgba(255,255,255,.25);cursor:pointer;
+    font-size:12px;line-height:1;color:#fff;padding:0;transition:transform .12s,background .12s,border-color .12s}
+  .dlbtn:hover{background:rgba(77,216,232,.30);border-color:rgba(77,216,232,.6);transform:scale(1.08)}
   /* 장애표시 유예 (관리자 전용) */
   .waivebtn{position:absolute;bottom:7px;right:8px;z-index:3;background:rgba(0,0,0,.35);border:1px solid rgba(255,255,255,.25);border-radius:6px;cursor:pointer;font-size:10px;font-weight:800;line-height:1;color:#fff;padding:3px 7px}
   .waivebtn:hover{border-color:#fff}
@@ -252,7 +261,7 @@
   .org{border:1px solid var(--panel-line);border-radius:14px;padding:14px;background:var(--panel);margin-bottom:14px}
   .org-head{display:flex;gap:8px;align-items:center;margin-bottom:12px}
   .org-del{background:rgba(255,107,107,.1);border:1px solid rgba(255,107,107,.3);color:var(--danger);border-radius:8px;padding:7px 10px;font-size:12px;font-weight:600;cursor:pointer;white-space:nowrap}
-  .item{display:grid;grid-template-columns:46px 1.2fr 1.4fr 0.9fr 36px;gap:8px;margin-bottom:8px;align-items:center}
+  .item{display:grid;grid-template-columns:46px 1.1fr 1.2fr 0.8fr 0.8fr 36px;gap:8px;margin-bottom:8px;align-items:center}
   .item input[data-f="name"]{font-weight:700}
   .item input[data-f="order"]{text-align:center;padding:8px 4px}
   .orgtabs{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:16px}
@@ -261,13 +270,13 @@
   .orgtab.active{background:rgba(77,216,232,.12);border-color:var(--accent);color:var(--accent)}
   .item-del{background:none;border:1px solid var(--panel-line);color:var(--txt-faint);border-radius:8px;cursor:pointer;height:36px;font-size:16px}
   .item-del:hover{color:var(--danger);border-color:var(--danger)}
-  .col-labels{display:grid;grid-template-columns:46px 1.2fr 1.4fr 0.9fr 36px;gap:8px;font-size:11px;color:var(--txt-faint);font-weight:600;margin-bottom:6px;padding:0 2px}
+  .col-labels{display:grid;grid-template-columns:46px 1.1fr 1.2fr 0.8fr 0.8fr 36px;gap:8px;font-size:11px;color:var(--txt-faint);font-weight:600;margin-bottom:6px;padding:0 2px}
   .addbtn{background:rgba(77,216,232,.1);border:1px dashed rgba(77,216,232,.4);color:var(--accent);border-radius:9px;padding:9px;width:100%;font-size:13px;font-weight:600;cursor:pointer;margin-top:4px}
   /* 일반계정: 조직/AI 삭제 숨김 (관리자만 가능) */
   body.role-user .org-del,
   body.role-user .item-del{display:none}
   body.role-user .item,
-  body.role-user .col-labels{grid-template-columns:46px 1.2fr 1.4fr 0.9fr}
+  body.role-user .col-labels{grid-template-columns:46px 1.1fr 1.2fr 0.8fr 0.8fr}
   .addorg{background:var(--panel);border:1px dashed var(--panel-line);color:var(--txt-dim);border-radius:12px;padding:12px;width:100%;font-size:13px;font-weight:600;cursor:pointer}
   .addorg:hover{border-color:var(--accent);color:var(--accent)}
 
@@ -307,8 +316,8 @@
     header{padding:34px 0 22px}
     .topright{top:0;right:18px}
     .manual-link{top:30px;right:18px;font-size:11px}
-    .item,.col-labels{grid-template-columns:40px 1fr 1fr 1fr 34px}
-    body.role-user .item,body.role-user .col-labels{grid-template-columns:40px 1fr 1fr 1fr}
+    .item,.col-labels{grid-template-columns:40px 1fr 1fr 1fr 1fr 34px}
+    body.role-user .item,body.role-user .col-labels{grid-template-columns:40px 1fr 1fr 1fr 1fr}
     .acc-add{grid-template-columns:1fr 1fr}
   }
   @media not all{ /* standalone: 감속모션 게이트 해제 */
@@ -327,7 +336,7 @@
   .theme-menu button:hover{background:rgba(127,127,127,.12)}
   .theme-menu button.active{color:var(--accent)}
   .theme-menu button .sw{width:14px;height:14px;border-radius:4px;border:1px solid var(--panel-line)}
-  .sw.dark{background:#090d18}.sw.white{background:#ffffff}.sw.lg{background:linear-gradient(135deg,#bdbdbd 50%,#1d5e3a 50%)}
+  .sw.dark{background:#090d18}.sw.white{background:#ffffff}
 
   /* 챗봇 */
   .chat-fab{position:fixed;right:18px;bottom:18px;width:58px;height:58px;border-radius:50%;background:var(--accent);color:#04121a;border:none;cursor:pointer;box-shadow:0 8px 24px rgba(0,0,0,.4);display:grid;place-items:center;z-index:60}
@@ -642,7 +651,7 @@
     background:transparent;transition:background .28s,border-color .28s,backdrop-filter .28s;
     overflow:visible}
   header.scrolled{
-    background:rgba(5,7,14,.72);border-bottom-color:var(--panel-line);
+    background:var(--header-scroll-bg);border-bottom-color:var(--panel-line);
     backdrop-filter:blur(var(--blur));-webkit-backdrop-filter:blur(var(--blur))}
   .nav-inner{
     max-width:1320px;margin:0 auto;padding:0 28px;height:var(--nav-h);
@@ -725,20 +734,39 @@
      top/bottom 이 아니라 영상의 고유 종횡비로 높이를 잡아 섹션 아래가 빈다. */
   #heroVideo{position:absolute;top:var(--nav-h);left:0;right:0;
     width:100%;height:calc(100% - var(--nav-h));object-fit:cover;
-    display:block;z-index:0;pointer-events:none;border:0;background:var(--ink)}
+    display:block;z-index:0;pointer-events:none;border:0;background:#000}
   #heroVeil{position:absolute;top:var(--nav-h);left:0;right:0;height:calc(100% - var(--nav-h));
     z-index:0;pointer-events:none;background:rgba(0,0,0,.4)}
   #heroVideo[hidden],#heroVeil[hidden]{display:none}
   /* 첫 화면은 히어로만 있으므로 세로 가운데로 모은다 */
   #secHome{justify-content:center}
   #secHome .home-inner{justify-content:center}
+  /* 히어로 영상 위 문구는 테마와 무관하게 항상 다크 테마 배색으로 고정한다.
+     화이트 테마의 어두운 본문색(--txt 등)이 영상+반투명 검정 베일(#heroVeil) 위에 얹히면
+     대비가 무너져 글자가 거의 안 보이고, 하단 페이드(.hero::after)도 --ink 를 따라가서
+     흰색으로 번져 영상이 뿌옇게 보인다. #secHome 안에서만 원래(다크) 값으로 되돌린다. */
+  #secHome{
+    --ink:#05070e;
+    --txt:#eaf0fb;
+    --txt-dim:rgba(234,240,251,.62);
+    --txt-faint:rgba(234,240,251,.38);
+    --accent:#4dd8e8;
+    --accent-2:#8b7bff;
+    --on-accent:#04141a;
+    --panel-line:rgba(140,170,255,.13);
+    --grad:linear-gradient(120deg,#4dd8e8 0%,#6fb4ff 48%,#8b7bff 100%);
+    --glow:0 0 26px rgba(77,216,232,.22);
+  }
   /* 문구는 영상 위에 얹힌다 — 박스형 스크림(.hero::before)은 밝은 영상에서 어두운
      타원으로 드러나므로 쓰지 않고, 글자 자체에 그림자를 준다.
      제목은 text-shadow 가 아니라 filter:drop-shadow 다. 안의 <span class="grad"> 가
      background-clip:text + text-fill-color:transparent 라 text-shadow 는 투명한
      글자 속으로 비쳐 지저분해진다. drop-shadow 는 렌더 결과의 알파를 따른다. */
   #secHome .hero::before{display:none}
-  #secHome .hero-title{filter:drop-shadow(0 2px 14px rgba(5,7,14,.85))}
+  /* .hero-title 는 원래 색을 직접 지정하지 않고 body{color:var(--txt)}를 상속만 받는데,
+     상속은 body 에서 --txt 가 이미 해석된 "값"을 물려주는 것이라 이 아래 #secHome 스코프의
+     --txt 재정의가 반영되지 않는다. 여기서 직접 var(--txt)를 지정해 이 스코프 값을 쓰게 한다. */
+  #secHome .hero-title{color:var(--txt);filter:drop-shadow(0 2px 14px rgba(5,7,14,.85))}
   #secHome .hero .eyebrow,
   #secHome .hero-tagline,
   #secHome .hero .sub{text-shadow:0 1px 10px rgba(5,7,14,.85)}
@@ -1106,6 +1134,55 @@
     --soon:#e8b34a;
   }
 
+  /* ===== 화이트 테마 — 톱 네비 테마 버튼(#themeBtn)에서 전환 =====
+     팀 디자인 가이드: 메인 배경 #FFFFFF, 카드/구분/hover는 오프화이트(#F8F9FA 계열),
+     테두리는 미세한 그레이(#E5E7EB), 포인트 컬러는 1~2개로 제한, 본문은 완전한 검정
+     대신 다크 그레이(#111827)+세컨더리 그레이(#6B7280)로 계층을 준다.
+     카테고리 색(--cat-1..4)은 화이트 테마에서도 그대로 유지 — 여기서 건드리지 않는다. */
+  body.theme-white{
+    color-scheme:light;
+    --ink:#f2f4f7;
+    --ink-2:#f9fafb;
+    --panel:#dfe3ea;
+    --surface-high:#f2f4f7;
+    --surface-bright:#d0d5de;
+    --panel-line:#c5cbd5;
+    --txt:#111827;
+    --txt-dim:#6b7280;
+    --txt-faint:#9ca3af;
+    --accent:#0891b2;
+    --accent-2:#6366f1;
+    --on-accent:#ffffff;
+    --danger:#dc2626;
+    --grad:linear-gradient(120deg,#0891b2 0%,#6366f1 100%);
+    --c0:#f2f4f7; --c1:#eaedf1; --c2:#dfe3ea; --c3:#d1d6de;
+    --c4:#16a34a; --c5:#6366f1; --c6:#d97706;
+    --cell-soon:#f2f4f7;
+    --header-scroll-bg:rgba(242,244,247,.94);
+    --dock-bg:rgba(223,227,234,.96);
+    --dock-bg-strong:rgba(223,227,234,.98);
+    --card-bg:#dfe3ea;
+    --card-bg-live:var(--card-bg);
+    --card-shadow:0 1px 3px rgba(17,24,39,.06),0 10px 22px rgba(17,24,39,.08);
+  }
+  /* 화이트 테마 카드 — 어두운 배경을 전제로 한 반투명 흰색 오버레이는 밝은 배경 위에서
+     거의 안 보이므로, 카드 자체 배경/그림자를 명시적으로 준다 (시인성 확보).
+     카드 상단의 카테고리 색 바(--catc)는 그대로 유지된다.
+     페이지 배경(--ink)이 이전 카드색을 물려받았기 때문에, 카드(--card-bg/--panel)는 그보다
+     한 단계 더 진한 색으로 구분한다. */
+  body.theme-white .cell{background:var(--card-bg);box-shadow:var(--card-shadow)}
+  body.theme-white .cell:hover{background:var(--surface-bright)}
+  body.theme-white .cell:not(.dark){background:var(--card-bg-live)}
+  body.theme-white .cell.v10cell{background:var(--card-bg);box-shadow:var(--card-shadow)}
+  body.theme-white .cell.v10cell:hover{background:var(--surface-bright)}
+  body.theme-white .cell.v10cell:not(.dark){background:var(--card-bg-live)}
+  body.theme-white .comm-card{background:var(--card-bg);box-shadow:var(--card-shadow)}
+  body.theme-white .comm-card:hover{background:var(--surface-bright)}
+  /* 공지사항 박스는 카드색이 아니라 배경색과 동일하게 */
+  body.theme-white .ih-card{background:var(--ink);box-shadow:none}
+  body.theme-white .t5{background:var(--card-bg);box-shadow:var(--card-shadow)}
+  body.theme-white .t5:hover{background:var(--surface-bright)}
+
   /* ---------- 상단 메뉴: 5개 → 4개, 간격 확보 ---------- */
   .nav-links{gap:20px;margin-left:20px}
   .nav-links a{font-size:15px;padding:9px 18px;letter-spacing:.01em}
@@ -1258,7 +1335,7 @@
     color:var(--txt);opacity:.09;letter-spacing:-0.06em;font-variant-numeric:tabular-nums}
   .t5.first{box-shadow:var(--glow)}
   .t5 > *{position:relative;z-index:2}
-  .t5-name{font-size:16px;font-weight:800;line-height:1.3;color:#fff;word-break:keep-all;margin-top:12px;padding-right:20px}
+  .t5-name{font-size:16px;font-weight:800;line-height:1.3;color:var(--txt);word-break:keep-all;margin-top:12px;padding-right:20px}
   .t5-desc{font-size:12.5px;color:var(--txt-dim);line-height:1.6;word-break:keep-all;margin-top:8px}
   .t5-foot{margin-top:auto;padding-top:12px;display:flex;align-items:center;justify-content:space-between;gap:8px}
   @media (max-width:1180px){.top5-grid{grid-template-columns:repeat(3,minmax(0,1fr))}
@@ -1299,7 +1376,7 @@
     inset:auto;left:0;right:0;top:0;width:auto;height:2px;border-radius:0;opacity:1;
     background:linear-gradient(90deg,transparent,var(--catc),transparent)}
   .cell.v10cell:not(.dark){background:linear-gradient(180deg,rgba(77,216,232,.09),rgba(139,123,255,.04))}
-  .cell.v10cell .cell-name{margin-top:9px;padding-right:0;font-size:13.5px;font-weight:800;color:#fff}
+  .cell.v10cell .cell-name{margin-top:9px;padding-right:0;font-size:13.5px;font-weight:800;color:var(--txt)}
   .cell.v10cell .cell-desc{margin-top:5px}
   .cell.v10cell.hasnew .cell-name{padding-right:0}
   .newflag{top:32px;right:8px}
@@ -1576,8 +1653,8 @@
     background:rgba(34,197,94,.18);color:#4ade80;box-shadow:0 0 14px rgba(34,197,94,.22)}
   .badge-live{background:rgba(34,197,94,.18);color:#4ade80;box-shadow:0 0 14px rgba(34,197,94,.22)}
   .rc-badge.live{background:rgba(34,197,94,.18);color:#4ade80}
-  /* 카드 안 기술그룹 — 회색이라 안 보이던 것을 흰색으로 */
-  .v10org{color:rgba(255,255,255,.94);font-weight:700}
+  /* 카드 안 기술그룹 — 회색이라 안 보이던 것을 진한 본문색으로(테마별로 대비 확보) */
+  .v10org{color:var(--txt);font-weight:700}
   /* 카드를 키워 아래 여백을 없앤다 */
   /* 카드가 남는 높이를 나눠 먹어 아래 여백이 남지 않는다 */
   #secPlatform > .reveal{flex:1;min-height:0;display:flex;flex-direction:column}
@@ -1763,6 +1840,93 @@
 
 
   /* ==========================================================================
+     PTIC AI Platform V17 — 카드 다운로드 버튼 추가 · 즐겨찾기 별 좌측 이동
+     즐겨찾기 별이 있던 자리에 등록 HTML 다운로드 버튼을 새로 두고, 별은 그만큼 왼쪽으로 민다.
+     ========================================================================== */
+
+  /* ---------- 카테고리 카드 (그리드 셀) ----------
+     .dlbtn 기본 규칙(줄 149 부근)이 .cell > *{position:relative} 보다 뒤에 있어
+     이미 position:absolute 가 유지되므로 위치값만 지정하면 된다. */
+  .cell.v10cell .dlbtn{top:11px;right:12px}
+  .favstar{right:38px}
+
+  /* ---------- TOP5 카드 ----------
+     .t5 > *{position:relative} 를 다시 덮어써야 하는 이유는 별과 동일하다. */
+  #secTop5 .t5 > .dlbtn{position:absolute;top:13px;right:15px;z-index:3}
+  #secTop5 .t5 > .favstar{right:43px}
+
+  /* 별 + 다운로드 버튼이 나란히 있어 NEW 배지·상단 칩과 겹치지 않게 자리를 더 비운다 */
+  .newflag{right:64px}
+  .cell.hasnew .cell-name{padding-right:92px}
+  #secTop5 .v10top{padding-right:60px}
+
+
+  /* ==========================================================================
+     PTIC AI Platform V18 — 상태 배지를 카테고리 아래 줄로 · 별↔다운로드 자리 맞바꿈 ·
+     다운로드 버튼 평상시 가시성 개선
+     ========================================================================== */
+
+  /* ---------- 카테고리 칩과 상태 배지(준비중/사용 가능)를 줄바꿈 ----------
+     그리드 셀·TOP5 카드가 .v10top 을 공유하므로 한 번에 적용된다.
+     제목·설명은 배지가 내려간 만큼 자연히 밀리지만, 조금 더 여유를 준다. */
+  .v10top{flex-direction:column;align-items:flex-start;gap:5px}
+  .cell.v10cell .cell-name{margin-top:12px}
+  .cell.v10cell .cell-desc{margin-top:7px}
+  #secTop5 .t5-name{margin-top:19px}
+  #secTop5 .t5-desc{margin-top:13px}
+
+  /* ---------- 별 ↔ 다운로드 버튼 자리 맞바꾸기 (별을 원래 모서리 자리로) ---------- */
+  .cell.v10cell .favstar{right:12px}
+  .cell.v10cell .dlbtn{right:38px}
+  #secTop5 .t5 > .favstar{right:15px}
+  #secTop5 .t5 > .dlbtn{right:43px}
+
+  /* ---------- 다운로드 버튼: 호버 전에도 잘 보이도록 ---------- */
+  .dlbtn{background:rgba(77,216,232,.24);border-color:rgba(77,216,232,.6);color:#eafcff;
+    box-shadow:0 0 8px rgba(77,216,232,.30)}
+  .dlbtn:hover{background:rgba(77,216,232,.42);border-color:rgba(77,216,232,.85)}
+
+
+  /* ==========================================================================
+     PTIC AI Platform V19 — 화이트 테마 시인성 (즐겨찾기 별 · 다운로드 버튼)
+     다크 테마를 전제로 고른 색이라 밝은 카드 배경 위에서는 잘 안 보였다.
+     ========================================================================== */
+
+  /* 즐겨찾기 별(선택됨)은 --star 변수를 쓰므로, 화이트 테마 스코프에서 값만 진하게 바꾸면
+     .favstar.on{color:var(--star)} 에 자동으로 반영된다. */
+  body.theme-white{--star:#b45309}
+
+  /* 다운로드 버튼은 다크 배경 전제의 하드코딩된 색이라 직접 덮어써야 한다 */
+  body.theme-white .dlbtn{background:rgba(8,145,178,.14);border-color:rgba(8,145,178,.55);
+    color:#0e7490;box-shadow:none}
+  body.theme-white .dlbtn:hover{background:rgba(8,145,178,.28);border-color:rgba(8,145,178,.85)}
+
+
+  /* ==========================================================================
+     PTIC AI Platform V20 — 다운로드 버튼 커스텀 툴팁 (버튼 위쪽에 표시)
+     기본 title 속성 툴팁(브라우저 OS 스타일, 흰 배경)이 카드 디자인과 안 어울려서
+     사이트 다크 글래스 UI(.dockbar 등)와 같은 톤의 말풍선으로 교체한다.
+     .cell/.t5 가 overflow:hidden 이라 버튼의 자식(::after)으로 위쪽에 띄우면 카드
+     상단에서 잘린다 — 그래서 카드 DOM 밖(body 아래)에 별도 엘리먼트를 두고
+     position:fixed 로 버튼 위쪽 좌표에 직접 배치한다(JS: showDlTip/hideDlTip). */
+  .dl-tip{
+    position:fixed;top:0;left:0;z-index:200;pointer-events:none;
+    white-space:nowrap;font-size:11.5px;font-weight:700;color:var(--txt);
+    padding:6px 10px;border-radius:8px;border:1px solid var(--panel-line);
+    background:linear-gradient(180deg,rgba(255,255,255,.08),rgba(255,255,255,.02)),rgba(9,13,24,.94);
+    box-shadow:0 10px 24px rgba(0,0,0,.4);
+    backdrop-filter:blur(var(--blur));-webkit-backdrop-filter:blur(var(--blur));
+    opacity:0;visibility:hidden;transform:translateY(4px);
+    transition:opacity .15s,transform .15s,visibility .15s}
+  .dl-tip.show{opacity:1;visibility:visible;transform:translateY(0)}
+  .dl-tip::after{
+    content:"";position:absolute;top:100%;right:8px;
+    border:5px solid transparent;border-top-color:rgba(9,13,24,.94)}
+  /* 화이트 테마에서도 같은 다크 말풍선을 그대로 써 카드 배경과 상관없이 대비를 유지한다 */
+  body.theme-white .dl-tip{color:#f2f4f7}
+
+
+  /* ==========================================================================
      MAPS V3 — 하단 검색/채팅 바 · 맨 위로 · 설정 패널 · 챗봇 추천 이유
      기존 규칙은 건드리지 않고 전부 뒤에 얹는다.
      ========================================================================== */
@@ -1776,7 +1940,7 @@
     width:min(620px,calc(100vw - 176px));height:48px;
     display:flex;align-items:center;gap:10px;padding:0 8px 0 16px;
     border-radius:999px;border:1px solid var(--panel-line);
-    background:linear-gradient(180deg,rgba(255,255,255,.06),rgba(255,255,255,.02)),rgba(9,13,24,.86);
+    background:linear-gradient(180deg,rgba(255,255,255,.06),rgba(255,255,255,.02)),var(--dock-bg);
     backdrop-filter:blur(var(--blur));-webkit-backdrop-filter:blur(var(--blur));
     box-shadow:0 14px 40px rgba(0,0,0,.5);
     transition:border-color .18s,box-shadow .18s,opacity .18s}
@@ -1799,7 +1963,7 @@
     position:fixed;right:18px;bottom:86px;z-index:59;
     width:44px;height:44px;border-radius:50%;cursor:pointer;
     border:1px solid var(--panel-line);color:var(--txt-dim);
-    background:linear-gradient(180deg,rgba(255,255,255,.07),rgba(255,255,255,.02)),rgba(9,13,24,.9);
+    background:linear-gradient(180deg,rgba(255,255,255,.07),rgba(255,255,255,.02)),var(--dock-bg-strong);
     backdrop-filter:blur(var(--blur));-webkit-backdrop-filter:blur(var(--blur));
     display:grid;place-items:center;box-shadow:0 8px 22px rgba(0,0,0,.45);
     opacity:0;visibility:hidden;transform:translateY(8px);
@@ -1941,12 +2105,11 @@
       </button>
       <div class="theme-wrap">
         <button class="gear nospin" id="themeBtn" title="테마" aria-label="테마 변경">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="13.5" cy="6.5" r="2.5"/><circle cx="17.5" cy="10.5" r="2.5"/><circle cx="8.5" cy="7.5" r="2.5"/><circle cx="6.5" cy="12.5" r="2.5"/><path d="M12 2a10 10 0 1 0 0 20 2.5 2.5 0 0 0 2-4 2.5 2.5 0 0 1 2-4h2a4 4 0 0 0 4-4 10 10 0 0 0-10-8z"/></svg>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="8.5"/><path d="M12 3.5a8.5 8.5 0 0 1 0 17z" fill="currentColor" stroke="none"/></svg>
         </button>
         <div class="theme-menu" id="themeMenu">
           <button data-theme="white"><span class="sw white"></span>화이트</button>
           <button data-theme="dark"><span class="sw dark"></span>다크</button>
-          <button data-theme="lg"><span class="sw lg"></span>LG</button>
         </div>
       </div>
       <button class="gear nospin" id="gear" title="설정" aria-label="설정 열기">
@@ -2547,7 +2710,7 @@ const LIVE_COLOR="var(--cell-live)", SOON_COLOR="var(--cell-soon)";
 function esc(t){const d=document.createElement("div");d.textContent=t==null?"":t;return d.innerHTML}
 function isLive(it){return it.addr&&it.addr.trim()!==""&&!it.prep}
 function hasAddr(it){return it.addr&&it.addr.trim()!==""}
-function normAddr(a){a=(a||"").trim();if(!a)return"";return /^https?:\/\//i.test(a)?a:"http://"+a}
+function normAddr(a){a=(a||"").trim();if(!a)return"";if(/^https?:\/\//i.test(a))return a;if(a[0]==="/")return location.origin+a;return"http://"+a}
 
 /* 카테고리 순서는 아래 ORG_ORDER 와 문자열이 정확히 일치해야 한다.
    addr 가 비어 있으면 "준비중", 주소가 있으면 "운영중(LIVE)"으로 표시된다.
@@ -2607,10 +2770,17 @@ async function loadData(){
   renderGrid();
   if(typeof refreshPopularHub==="function")refreshPopularHub();
   if(typeof loadRank==="function")loadRank();
+  if(typeof loadDownloadCounts==="function")loadDownloadCounts();
 }
 let RANK7={};
 async function loadRank(){
   try{const r=await fetch("api/dash-rank",{cache:"no-store"});if(r.ok){const j=await r.json();if(j.ok&&j.items)RANK7=j.items;}}catch(e){}
+  renderGrid();
+}
+/* 다운로드 버튼에 마우스를 올렸을 때 보여줄 항목별 누적 다운로드 횟수 */
+let DL_COUNTS={};
+async function loadDownloadCounts(){
+  try{const r=await fetch("api/dash-download-counts",{cache:"no-store"});if(r.ok){const j=await r.json();if(j.ok&&j.counts)DL_COUNTS=j.counts;}}catch(e){}
   renderGrid();
 }
 const ORG_ORDER=["新 공정/공법 개발","해외법인 양산 지원","제품 개발 대응","공통 및 루틴 업무"];
@@ -2907,12 +3077,12 @@ function renderForm(){
   const ci=ACTIVE_ORG;
   const org=document.createElement("div");org.className="org";
   org.innerHTML=`<div class="org-head"><input data-ci="${ci}" data-f="team" placeholder="조직명" value="${esc(col.team)}"><input data-ci="${ci}" data-f="tag" placeholder="영문 태그(선택)" value="${esc(col.tag||"")}" style="max-width:200px"><button class="org-del" data-delorg="${ci}">조직 삭제</button></div>
-    <div class="col-labels"><span>순서</span><span>AI명</span><span>주소 (IP/URL)</span><span>담당자</span><span></span></div><div class="items-wrap"></div>
+    <div class="col-labels"><span>순서</span><span>AI명</span><span>주소 (IP/URL)</span><span>담당자</span><span>조직</span><span></span></div><div class="items-wrap"></div>
     <button class="addbtn" data-additem="${ci}">+ AI 추가</button>`;
   const wrap=org.querySelector(".items-wrap");
   (col.items||[]).forEach((it,ii)=>{
     const row=document.createElement("div");
-    row.innerHTML=`<div class="item"><input data-ci="${ci}" data-ii="${ii}" data-f="order" type="number" min="1" placeholder="#" value="${(+it.order||0)}"><input data-ci="${ci}" data-ii="${ii}" data-f="name" placeholder="AI명" value="${esc(it.name)}"><input data-ci="${ci}" data-ii="${ii}" data-f="addr" placeholder="비우면 준비중" value="${esc(it.addr||"")}"><input data-ci="${ci}" data-ii="${ii}" data-f="owner" placeholder="담당자" value="${esc(it.owner||"")}"><button class="item-del" data-delitem="${ci}:${ii}" title="삭제">×</button><input data-ci="${ci}" data-ii="${ii}" data-f="desc" placeholder="설명" value="${esc(it.desc||"")}" style="grid-column:1 / -1;margin-top:2px"><div style="grid-column:1 / -1;display:flex;gap:8px;margin-top:2px"><input data-ci="${ci}" data-ii="${ii}" data-f="version" placeholder="버전 (Live 타일 표기, 예: v0.15)" value="${esc(it.version||"")}" style="flex:1;min-width:0;margin:0"><input data-ci="${ci}" data-ii="${ii}" data-f="openDate" placeholder="오픈예정일 (준비중 타일 표기, 예: 2026-07-01)" value="${esc(it.openDate||"")}" style="flex:1;min-width:0;margin:0"></div><label style="grid-column:1 / -1;font-size:11px;color:var(--txt-dim);display:flex;align-items:center;gap:5px;margin-top:2px"><input type="checkbox" data-ci="${ci}" data-ii="${ii}" data-f="locked" ${it.locked?"checked":""} style="width:auto">접속 시 별도 로그인 필요 (자물쇠 표시)</label><div class="prep-row"><button type="button" class="prep-btn${it.pin?' on':''}" data-pin="${ci}:${ii}">${it.pin?'📌 상단 고정됨':'상단 고정'}</button><button type="button" class="prep-btn${it.prep?' on':''}" data-prep="${ci}:${ii}">${it.prep?'✓ 준비중 · 관리자 전용':'준비중으로 전환'}</button>${it.prep?'<span class="prep-hint">링크 유지 · 비관리자 접속 불가</span>':'<span class="prep-hint">주소 유지한 채 관리자만 접근</span>'}</div></div>`;
+    row.innerHTML=`<div class="item"><input data-ci="${ci}" data-ii="${ii}" data-f="order" type="number" min="1" placeholder="#" value="${(+it.order||0)}"><input data-ci="${ci}" data-ii="${ii}" data-f="name" placeholder="AI명" value="${esc(it.name)}"><input data-ci="${ci}" data-ii="${ii}" data-f="addr" placeholder="비우면 준비중" value="${esc(it.addr||"")}"><input data-ci="${ci}" data-ii="${ii}" data-f="owner" placeholder="담당자" value="${esc(it.owner||"")}"><input data-ci="${ci}" data-ii="${ii}" data-f="org" placeholder="조직명" value="${esc(it.org||"")}"><button class="item-del" data-delitem="${ci}:${ii}" title="삭제">×</button><input data-ci="${ci}" data-ii="${ii}" data-f="desc" placeholder="설명" value="${esc(it.desc||"")}" style="grid-column:1 / -1;margin-top:2px"><div style="grid-column:1 / -1;display:flex;gap:8px;margin-top:2px"><input data-ci="${ci}" data-ii="${ii}" data-f="version" placeholder="버전 (Live 타일 표기, 예: v0.15)" value="${esc(it.version||"")}" style="flex:1;min-width:0;margin:0"><input data-ci="${ci}" data-ii="${ii}" data-f="openDate" placeholder="오픈예정일 (준비중 타일 표기, 예: 2026-07-01)" value="${esc(it.openDate||"")}" style="flex:1;min-width:0;margin:0"></div><label style="grid-column:1 / -1;font-size:11px;color:var(--txt-dim);display:flex;align-items:center;gap:5px;margin-top:2px"><input type="checkbox" data-ci="${ci}" data-ii="${ii}" data-f="locked" ${it.locked?"checked":""} style="width:auto">접속 시 별도 로그인 필요 (자물쇠 표시)</label><div class="prep-row"><button type="button" class="prep-btn${it.pin?' on':''}" data-pin="${ci}:${ii}">${it.pin?'📌 상단 고정됨':'상단 고정'}</button><button type="button" class="prep-btn${it.prep?' on':''}" data-prep="${ci}:${ii}">${it.prep?'✓ 준비중 · 관리자 전용':'준비중으로 전환'}</button>${it.prep?'<span class="prep-hint">링크 유지 · 비관리자 접속 불가</span>':'<span class="prep-hint">주소 유지한 채 관리자만 접근</span>'}</div></div>`;
     wrap.appendChild(row.firstElementChild);
   });
   orgList.appendChild(org);
@@ -3878,9 +4048,8 @@ function renderPopularHub(){
 
 /* ---------- 테마 ---------- */
 function applyTheme(t){
-  document.body.classList.remove("theme-white","theme-lg");
+  document.body.classList.remove("theme-white");
   if(t==="white")document.body.classList.add("theme-white");
-  else if(t==="lg")document.body.classList.add("theme-lg");
   else t="dark";
   try{localStorage.setItem("infra_theme",t);}catch(e){}
   document.querySelectorAll("#themeMenu button").forEach(b=>b.classList.toggle("active",b.dataset.theme===t));
@@ -3895,7 +4064,10 @@ document.addEventListener("click",e=>{
   const m=document.getElementById("themeMenu");
   if(m.classList.contains("open")&&!e.target.closest(".theme-wrap"))m.classList.remove("open");
 });
-(function initTheme(){let t="lg";try{t=localStorage.getItem("infra_theme")||"lg";}catch(e){}applyTheme(t);})();
+/* 이전에 저장된 테마와 무관하게, 열 때는 항상 화이트 테마로 시작한다.
+   세션 중 다크로 바꾸는 건 여전히 가능하지만(applyTheme 이 localStorage 에 저장은 함),
+   다음에 다시 열면 그 값을 읽지 않고 또 화이트로 시작한다. */
+(function initTheme(){applyTheme("white");})();
 
 document.getElementById("showN").addEventListener("change",e=>{SHOW_N=parseInt(e.target.value)||5;EXPANDED=null;renderGrid();});
 
@@ -4757,7 +4929,33 @@ if(navigator.sendBeacon){try{navigator.sendBeacon("api/site-visit");}catch(e){}}
     return '<button type="button" class="v10like' + (on ? " on" : "") + '" title="좋아요">' +
            '<span class="v10heart">' + (on ? "♥" : "♡") + '</span><span>' + likeCount(team, it) + '</span></button>';
   }
-  /* 카드 안의 좋아요·즐겨찾기 버튼 배선 (그리드 셀·TOP5 공통) */
+
+  /* 다운로드 버튼 툴팁 — .cell/.t5 가 overflow:hidden 이라 버튼의 자식으로는 위쪽에 못 띄우므로
+     body 바로 아래 하나만 두고 position:fixed 좌표를 매번 계산해서 옮긴다(포탈 방식). */
+  var dlTipEl = null;
+  function ensureDlTip(){
+    if(!dlTipEl){
+      dlTipEl = document.createElement("div");
+      dlTipEl.className = "dl-tip";
+      document.body.appendChild(dlTipEl);
+    }
+    return dlTipEl;
+  }
+  function showDlTip(btn){
+    var tip = ensureDlTip();
+    tip.textContent = btn.getAttribute("data-tip") || "";
+    tip.classList.remove("show");
+    var r = btn.getBoundingClientRect();
+    var left = r.right - tip.offsetWidth;
+    if(left < 8) left = 8;
+    tip.style.left = left + "px";
+    tip.style.top = (r.top - tip.offsetHeight - 9) + "px";
+    tip.classList.add("show");
+  }
+  function hideDlTip(){
+    if(dlTipEl) dlTipEl.classList.remove("show");
+  }
+  /* 카드 안의 좋아요·즐겨찾기·다운로드 버튼 배선 (그리드 셀·TOP5 공통) */
   function wireCard(el, col, it){
     var lb = el.querySelector(".v10like");
     if(lb) lb.addEventListener("click", function(e){ e.preventDefault(); e.stopPropagation(); toggleLike(col.team, it); });
@@ -4769,6 +4967,46 @@ if(navigator.sendBeacon){try{navigator.sendBeacon("api/site-visit");}catch(e){}}
     star.title = on ? "즐겨찾기 해제" : "즐겨찾기";
     star.addEventListener("click", function(e){ e.preventDefault(); e.stopPropagation(); window.toggleFav(col.team, it.name); });
     el.appendChild(star);
+
+    /* addr 저장 형식이 두 가지 섞여 있다 — 최신 카드는 상대경로("/api/dash-file?id=..")로,
+       예전에 승인된 카드는 호스트가 박힌 절대경로("http://호스트/api/dash-file?id=..")로 저장돼
+       있을 수 있다(둘 다 normAddr()이 문제없이 열어준다). 앞이 "/"로 시작하는지는 안 보고,
+       문자열 어디에 이 경로가 있는지만 확인해 두 형식을 모두 잡아낸다. id 는 다운로드 횟수
+       조회에 쓰기 위해 캡처해둔다. */
+    var fileM = /\/api\/dash-file\?id=([^&]+)/.exec(String(it.addr || "").trim());
+    if(fileM){
+      var fileId = fileM[1];
+      var dl = document.createElement("button");
+      dl.type = "button";
+      dl.className = "dlbtn";
+      dl.innerHTML = "⬇";
+      var dlCount = (typeof DL_COUNTS !== "undefined" && DL_COUNTS && DL_COUNTS[fileId]) || 0;
+      /* 기본 title 툴팁 대신 커스텀 말풍선(.dl-tip, showDlTip/hideDlTip)을 쓴다.
+         title 을 남겨두면 커스텀 툴팁과 브라우저 OS 툴팁이 같이 뜨므로 title 은 없앤다.
+         스크린리더용 설명은 aria-label 로 대체한다. */
+      dl.setAttribute("data-tip", "다운로드 " + dlCount + "회");
+      dl.setAttribute("aria-label", "등록한 HTML 다운로드 (" + dlCount + "회 다운로드됨)");
+      dl.addEventListener("mouseenter", function(){ showDlTip(dl); });
+      dl.addEventListener("mouseleave", hideDlTip);
+      dl.addEventListener("focus", function(){ showDlTip(dl); });
+      dl.addEventListener("blur", hideDlTip);
+      dl.addEventListener("click", function(e){
+        e.preventDefault(); e.stopPropagation();
+        var url = normAddr(it.addr) + "&download=1";
+        var link = document.createElement("a");
+        link.href = url; link.download = "";
+        document.body.appendChild(link); link.click(); link.remove();
+        try{
+          if(typeof DL_COUNTS !== "undefined"){
+            DL_COUNTS[fileId] = ((DL_COUNTS[fileId] || 0) + 1);
+            dl.setAttribute("data-tip", "다운로드 " + DL_COUNTS[fileId] + "회");
+            dl.setAttribute("aria-label", "등록한 HTML 다운로드 (" + DL_COUNTS[fileId] + "회 다운로드됨)");
+            showDlTip(dl);
+          }
+        }catch(err){}
+      });
+      el.appendChild(dl);
+    }
   }
 
   /* ---------------- TOP5 — 좋아요 상위 5개 ---------------- */
@@ -4834,7 +5072,14 @@ if(navigator.sendBeacon){try{navigator.sendBeacon("api/site-visit");}catch(e){}}
     var counts = c.map(function(col){
       return (col.items || []).filter(function(it){ return !ORG_SEL || it.org === ORG_SEL; }).length;
     });
-    var max = Math.max.apply(null, counts.concat([1]));
+    /* Y축(막대 높이 기준)은 특정 조직으로 필터링해도 고정되어야 한다 — 그래야 "전체" 대비
+       필터링된 조직의 비중이 낮으면 막대도 그만큼 낮게 보인다. 필터와 무관한 전체 개수로
+       max 를 구한다 (필터링된 counts 로 구하면 필터 결과 중 최댓값이 항상 100%가 되어버린다). */
+    var allCounts = c.map(function(col){ return (col.items || []).length; });
+    var max = Math.max.apply(null, allCounts.concat([1]));
+    /* 특정 조직으로 필터링하면(ORG_SEL 있음) "전체" 기준 그대로는 막대가 너무 작아 보이므로,
+       기준값을 절반으로 낮춰(=높이를 2배로) 보되, 100%는 넘지 않게 막는다. */
+    var scaleMax = ORG_SEL ? Math.max(1, max / 2) : max;
     if(box.children.length !== c.length){
       box.innerHTML = "";
       c.forEach(function(col, i){
@@ -4852,7 +5097,7 @@ if(navigator.sendBeacon){try{navigator.sendBeacon("api/site-visit");}catch(e){}}
       var n = counts[i];
       d.classList.toggle("empty", n === 0);
       d.querySelector(".cc-num").textContent = String(n);
-      d.querySelector(".cc-bar").style.height = (n ? Math.max(10, Math.round(n / max * 100)) : 4) + "%";
+      d.querySelector(".cc-bar").style.height = (n ? Math.max(10, Math.min(100, Math.round(n / scaleMax * 100))) : 4) + "%";
     }
   }
 
