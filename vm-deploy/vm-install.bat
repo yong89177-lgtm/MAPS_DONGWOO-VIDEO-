@@ -37,12 +37,23 @@ if not exist ".env" (
   echo.
 )
 
-echo Installing dependencies (this can take a few minutes on first run)...
-call npm install
-if errorlevel 1 (
-  echo [ERROR] npm install failed. See the messages above for details.
-  pause
-  exit /b 1
+if exist "node_modules" (
+  echo node_modules already present, skipping npm install.
+  echo ^(If this VM has no internet access, copy the node_modules folder here
+  echo  from a PC that ran "npm install" on this same project.^)
+) else (
+  echo Installing dependencies (this can take a few minutes on first run)...
+  call npm install
+  if errorlevel 1 (
+    echo.
+    echo [ERROR] npm install failed. See the messages above for details.
+    echo If this VM has no internet access to registry.npmjs.org, run
+    echo "npm install" on a PC that does have internet access instead,
+    echo then copy the resulting node_modules folder into this vm-deploy
+    echo folder and run this file again.
+    pause
+    exit /b 1
+  )
 )
 
 echo.
