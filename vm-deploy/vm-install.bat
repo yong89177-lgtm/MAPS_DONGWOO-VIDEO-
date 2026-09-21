@@ -1,0 +1,71 @@
+@echo off
+chcp 65001 >nul
+setlocal EnableExtensions
+
+cd /d "%~dp0"
+
+set "VM_IP=10.94.25.177"
+set "VM_PORT=3000"
+
+echo ================================================
+echo  AI Agent Market - VM Server Install
+echo ================================================
+echo.
+
+where node >nul 2>nul
+if errorlevel 1 (
+  echo [ERROR] Node.js is not installed on this VM.
+  echo Install it from https://nodejs.org and run this file again.
+  pause
+  exit /b 1
+)
+
+if not exist "package.json" (
+  echo [ERROR] package.json was not found in:
+  echo   %CD%
+  echo Make sure this vm-deploy folder was copied correctly to the VM.
+  pause
+  exit /b 1
+)
+
+if not exist ".env" (
+  echo Creating .env from .env.example with default values...
+  copy .env.example .env >nul
+  echo.
+  echo [IMPORTANT] Open .env with Notepad and change ADMIN_KEY to a real secret
+  echo             before exposing this server to other people.
+  echo.
+)
+
+echo Installing dependencies (this can take a few minutes on first run)...
+call npm install
+if errorlevel 1 (
+  echo [ERROR] npm install failed. See the messages above for details.
+  pause
+  exit /b 1
+)
+
+echo.
+echo Adding a Windows Firewall rule to allow inbound traffic on port %VM_PORT%...
+netsh advfirewall firewall show rule name="AI Agent Market (%VM_PORT%)" >nul 2>nul
+if errorlevel 1 (
+  netsh advfirewall firewall add rule name="AI Agent Market (%VM_PORT%)" dir=in action=allow protocol=TCP localport=%VM_PORT% >nul 2>nul
+  if errorlevel 1 (
+    echo [WARNING] Could not add the firewall rule automatically.
+    echo           Re-run this file "as Administrator", or add the rule manually:
+    echo           netsh advfirewall firewall add rule name="AI Agent Market (%VM_PORT%)" dir=in action=allow protocol=TCP localport=%VM_PORT%
+  ) else (
+    echo Firewall rule added.
+  )
+) else (
+  echo Firewall rule already exists.
+)
+
+echo.
+echo ================================================
+echo  Install complete.
+echo  Run vm-start.bat to start the server.
+echo  It will be reachable at http://%VM_IP%:%VM_PORT%
+echo ================================================
+echo.
+pause
